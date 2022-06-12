@@ -1,0 +1,29 @@
+.popup__window {
+  padding: 0;
+  margin: 26px 0 0;
+  width: 100%;
+  display: block;
+  border: none;
+  border-bottom:  1px solid rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 2.2;
+  color: #000000;
+}
+
+.popup__window:first-of-type {
+ margin: 0;
+}
+
+.popup__window:focus {
+  outline: 1px solid rgba(0, 0, 0, 1);
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 690px) {
+  .popup__window {
+    margin-top: 26px;
+  }
+}

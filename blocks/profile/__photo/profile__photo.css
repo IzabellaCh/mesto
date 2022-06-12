@@ -1,0 +1,20 @@
+.profile__photo {
+  margin: 0 3.4% 0 0;
+  padding: 0;
+  background-image: url(../../../images/avatar.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-clip: padding-box;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 60px;
+  min-width: 120px;
+  min-height: 120px;
+}
+
+@media screen and (max-width: 690px) {
+  .profile__photo {
+    margin: 0 0 22.25px;
+  }
+}

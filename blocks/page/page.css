@@ -1,0 +1,39 @@
+.page {
+  max-width: 1280px;
+  min-width: 320px;
+  margin: 0 auto 0;
+  padding: 45px 150px 60px;
+  box-sizing: border-box;
+  font-family: 'Inter', Arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 1280px) {
+  .page {
+    padding: 45px 200px 60px;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  .page {
+    padding: 45px 100px 60px;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .page {
+    padding: 45px 50px 60px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .page {
+    padding: 23.5px 19px 36px;
+  }
+}
