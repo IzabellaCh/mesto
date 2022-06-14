@@ -10,80 +10,81 @@
   <div class="page">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип." />
-      <div class="header__line"></div>
     </header>
-    <main class="main">
+    <main class="main padding-side">
       <section class="profile" aria-label="Профиль">
         <div class="profile__data">
           <img class="profile__photo" src="./images/avatar.jpg" alt="Аватар." />
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button condition-button"></button>
+            <button class="profile__edit-button button"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button condition-button"></button>
+        <button class="profile__add-button button"></button>
       </section>
-      <section class="popup">
+      <div class="popup">
         <div class="popup__container">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <form class="popup__form">
-            <input type="text" name="firstname" class="popup__window popup__name" placeholder="Имя" value="Жак-Ив Кусто" contenteditable="true" required>
-            <input type="text" name="description" class="popup__window popup__description" placeholder="О себе" value="Исследователь океана" contenteditable="true">
+            <input type="text" name="firstname" class="popup__field popup__field_type_name" placeholder="Имя" required>
+            <input type="text" name="description" class="popup__field popup__field_type_description" placeholder="О себе">
             <button type="submit" class="popup__save-button">Сохранить</button> 
           </form>
-          <button class="popup__close-button condition-button"></button>
+          <button class="popup__close-button button"></button>
         </div>
-      </section>
+      </div>
       <section class="elements" aria-label="Фото">
-        <div class="element">
-          <img class="element__image" src="./images/elements/karachaevsk.jpg" alt="Заброшенный храм в горах."/>
-          <div class="element__description">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__like-button"></button>
-          </div>
-        </div>
-        <div class="element">
-            <img class="element__image" src="./images/elements/elbrus.jpg" alt="Эльбрус." />
+        <ul class="elements__list">
+          <li class="element">
+            <img class="element__image" src="./images/elements/karachaevsk.jpg" alt="Заброшенный храм в горах."/>
             <div class="element__description">
-              <h2 class="element__title">Гора Эльбрус</h2>
+              <h2 class="element__title">Карачаево-Черкессия</h2>
               <button class="element__like-button"></button>
             </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/elements/dombay.jpg" alt="Горы Домбая."/>
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like-button"></button>
-          </div>
-        </div>
-          <div class="element">
-            <img class="element__image" src="./images/elements/ob.jpg" alt="Альпы." />
+          </li>
+          <li class="element">
+              <img class="element__image" src="./images/elements/elbrus.jpg" alt="Эльбрус." />
+              <div class="element__description">
+                <h2 class="element__title">Гора Эльбрус</h2>
+                <button class="element__like-button"></button>
+              </div>
+          </li>
+          <li class="element">
+            <img class="element__image" src="./images/elements/dombay.jpg" alt="Горы Домбая."/>
             <div class="element__description">
-              <h2 class="element__title">Обь</h2>
+              <h2 class="element__title">Домбай</h2>
               <button class="element__like-button"></button>
             </div>
-        </div>
-        <div class="element">
-            <img class="element__image" src="./images/elements/baikal.jpg" alt="Замерзший лед Байкала." />
-            <div class="element__description">
-              <h2 class="element__title">Озеро Байкал</h2>
-              <button class="element__like-button"></button>
-            </div>
-        </div>
-        <div class="element">
-            <img class="element__image" src="./images/elements/kamchatka-region.jpg" alt="Вид Камчатки со стороны моря." />
-            <div class="element__description">
-              <h2 class="element__title">Камчатский край</h2>
-              <button class="element__like-button"></button>
-            </div>
-        </div>
+          </li>
+          <li class="element">
+              <img class="element__image" src="./images/elements/ob.jpg" alt="Альпы." />
+              <div class="element__description">
+                <h2 class="element__title">Обь</h2>
+                <button class="element__like-button"></button>
+              </div>
+          </li>
+          <li class="element">
+              <img class="element__image" src="./images/elements/baikal.jpg" alt="Замерзший лед Байкала." />
+              <div class="element__description">
+                <h2 class="element__title">Озеро Байкал</h2>
+                <button class="element__like-button"></button>
+              </div>
+          </li>
+          <li class="element">
+              <img class="element__image" src="./images/elements/kamchatka-region.jpg" alt="Вид Камчатки со стороны моря." />
+              <div class="element__description">
+                <h2 class="element__title">Камчатский край</h2>
+                <button class="element__like-button"></button>
+              </div>
+          </li>
+        </ul>
       </section>
     </main>
-    <footer class="footer">
+    <footer class="footer padding-side">
       <p class="footer__copyright" lang="en">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
-  <script src="./index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

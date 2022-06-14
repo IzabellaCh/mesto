@@ -13,7 +13,7 @@
   border-radius: 2px;
   border: none;
   opacity: 1;
-  transition: opasity 0.5s linear;
+  transition: opacity 0.5s linear;
   cursor: pointer;
 }
 

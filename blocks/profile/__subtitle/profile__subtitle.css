@@ -10,11 +10,18 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 400px;
+}
+
+@media screen and (max-width: 840px) {
+  .profile__subtitle {
+    max-width: 300px;
+  }
 }
 
 @media screen and (max-width: 690px) {
   .profile__subtitle {
-    width: 100%;
+    max-width: 295px;
     text-align: center;
     margin-top: 7px;
   }
@@ -24,6 +31,7 @@
   .profile__subtitle {
     font-size: 14px;
     line-height: 1.21;
+    max-width: 200px;
   }
 }
 
