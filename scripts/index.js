@@ -85,16 +85,14 @@ function createCard(element, position = "end") {
   
   //открытие/закрытие попапа с картами
   cardImage.addEventListener('click', openPopupCard);
-  closeButtonCard.addEventListener('click', closePopupCard);
+  closeButtonCard.addEventListener('click', (event) => {
+    closePopup(popupCard)
+  });
 
   function openPopupCard() {
     popupImage.src = cardImage.src;
     popupTitle.textContent = cardName.textContent;
     openPopup(popupCard);
-  }
-
-  function closePopupCard() {
-    closePopup(popupCard);
   }
 }
 
@@ -112,16 +110,14 @@ const descriptionPlace = document.querySelector('.profile__subtitle');
 
 //Открытие/закрытие попапа с личной информацией
 editButton.addEventListener('click', openPopupInfo);
-closeButtonInfo.addEventListener('click', closePopupInfo);
+closeButtonInfo.addEventListener('click', (event) => {
+  closePopup(popupPersInfo)
+});
 
 function openPopupInfo() {
   nameInput.value = namePlace.textContent;
   jobInput.value = descriptionPlace.textContent;
   openPopup(popupPersInfo);
-}
-
-function closePopupInfo() {
-  closePopup(popupPersInfo);
 }
 
 //Изменение информации в профиле
@@ -145,14 +141,12 @@ const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img
 
 //Открытие/закрытие попапа для добавления карточек
 addButton.addEventListener('click', openPopupCards);
-closeButtonCards.addEventListener('click', closePopupCards);
+closeButtonCards.addEventListener('click', (event) => {
+  closePopup(popupCards)
+});
 
 function openPopupCards() {
   openPopup(popupCards);
-}
-
-function closePopupCards() {
-  closePopup(popupCards);
 }
 
 //Добавление новых карточек
@@ -169,7 +163,7 @@ function formSubmitHandlerCards(evt) {
   placeNameInput.value = '';
   linkImgInput.value = '';
 //закрытие попапа
-  closePopupCards();
+  closePopup(popupCards);
 }
 
 formElementCards.addEventListener('submit', formSubmitHandlerCards);
