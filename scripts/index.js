@@ -1,16 +1,32 @@
-//общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
+//определение списка попапов
 const popups = document.querySelectorAll('.popup');
-
-function openPopup(arg) {
-  arg.classList.add('popup_opened');
-}
-
-function closePopup(arg) {
-  arg.classList.remove('popup_opened');
-}
+const closeButton = document.querySelector('.popup__close-button');
+//определение содержания шаблона для карточек
+const elementTemplate = document.querySelector('#element-template').content;
+//определение объектов для открытия большого изображения в popup 
+const popupCard = document.querySelector('.popup_type_card');
+const popupImage = document.querySelector('.popup__image');
+const popupTitle = document.querySelector('.popup__title');
+//определение объектов, связанных с личной информацией
+const popupPersInfo = document.querySelector('.popup_type_personal-information');
+const editButton = document.querySelector('.profile__edit-button');
+const saveButtonInfo = popupPersInfo.querySelector('.popup__save-button');
+const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
+const nameInput = formElementInfo.querySelector('.popup__field_type_name');
+const jobInput = formElementInfo.querySelector('.popup__field_type_description');
+const namePlace = document.querySelector('.profile__name');
+const descriptionPlace = document.querySelector('.profile__subtitle');
+//Объявление объектов, связанных с карточками
+const popupCards = document.querySelector('.popup_type_add-new-cards');
+const addButton = document.querySelector('.profile__add-button');
+const saveButtonCards = popupCards.querySelector('.popup__save-button_type_add-new-cards');
+const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
+const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
+const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
 
 //определение области для вставки массива
 const cardList = document.querySelector('.elements__list');
+//определение начального массива
 const initialCards = [
   {
     name: 'Архыз',
@@ -38,15 +54,31 @@ const initialCards = [
   }
 ];
 
+//общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (event) => {
+    if (event.target.classList.contains('popup__close-button'))
+      closePopup(popup);
+    });
+})
+
 //создание карточек из массива
 initialCards.forEach(function (element) {
   createCard(element);
 })
 
-//создание шаблона карточки с кнопками
+//создание шаблона карточки с кнопками и popup для выведения большого изображения
+
 function createCard(element, position = "end") {
   //создание шаблона
-  const elementTemplate = document.querySelector('#element-template').content;
   const card = elementTemplate.querySelector('.element').cloneNode(true);
 
   //заполнение шаблона
@@ -54,6 +86,7 @@ function createCard(element, position = "end") {
   const cardName =  card.querySelector('.element__title');
 
   cardImage.src = element.link;
+  cardImage.alt = element.name + '.';
   cardName.textContent = element.name;
 
   //изменение состояния кнопки "like"
@@ -63,11 +96,6 @@ function createCard(element, position = "end") {
   evt.target.classList.toggle('element__like-button_type_active');
 });
 
-  //добавление карты в DOM
-  if (position === 'end') {
-    cardList.append(card);
-  } else  cardList.prepend(card);
-
   //удаление карт
   const deleteButton = card.querySelector('.element__trash-button');
 
@@ -75,44 +103,27 @@ function createCard(element, position = "end") {
     evt.preventDefault();
     card.remove();
   })
-
-  //добавление popup для открытия изображения с названием
-  //объявление объектов
-  const popupCard = document.querySelector('.popup_type_card');
-  const popupImage = document.querySelector('.popup__image');
-  const popupTitle = document.querySelector('.popup__title');
-  const closeButtonCard = document.querySelector('.popup__close-button_type_card');
   
-  //открытие/закрытие попапа с картами
+  //открытие попапа с картами
   cardImage.addEventListener('click', openPopupCard);
-  closeButtonCard.addEventListener('click', (event) => {
-    closePopup(popupCard)
-  });
 
   function openPopupCard() {
     popupImage.src = cardImage.src;
+    popupImage.alt = cardName.textContent + '.';
     popupTitle.textContent = cardName.textContent;
     openPopup(popupCard);
   }
-}
 
-//Объявление объектов, связанных с личной информацией
-// const popup = document.querySelector('.popup');
-const popupPersInfo = document.querySelector('.popup_type_personal-information');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButtonInfo = document.querySelector('.popup__close-button_type_personal-information');
-const saveButtonInfo = popupPersInfo.querySelector('.popup__save-button');
-const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
-const nameInput = formElementInfo.querySelector('.popup__field_type_name');
-const jobInput = formElementInfo.querySelector('.popup__field_type_description');
-const namePlace = document.querySelector('.profile__name');
-const descriptionPlace = document.querySelector('.profile__subtitle');
+  // return element;
+
+    //добавление карты в DOM
+  if (position === 'end') {
+    cardList.append(card);
+  } else  cardList.prepend(card);
+}
 
 //Открытие/закрытие попапа с личной информацией
 editButton.addEventListener('click', openPopupInfo);
-closeButtonInfo.addEventListener('click', (event) => {
-  closePopup(popupPersInfo)
-});
 
 function openPopupInfo() {
   nameInput.value = namePlace.textContent;
@@ -121,36 +132,24 @@ function openPopupInfo() {
 }
 
 //Изменение информации в профиле
-function formSubmitHandlerInfo(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   namePlace.textContent = nameInput.value;
   descriptionPlace.textContent = jobInput.value;
   closePopup(popupPersInfo);
 }
 
-formElementInfo.addEventListener('submit', formSubmitHandlerInfo);
-
-//Объявление объектов, связанных с карточками
-const popupCards = document.querySelector('.popup_type_add-new-cards');
-const addButton = document.querySelector('.profile__add-button');
-const closeButtonCards = document.querySelector('.popup__close-button_type_add-new-cards');
-const saveButtonCards = popupCards.querySelector('.popup__save-button_type_add-new-cards');
-const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
-const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
-const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
+formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //Открытие/закрытие попапа для добавления карточек
 addButton.addEventListener('click', openPopupCards);
-closeButtonCards.addEventListener('click', (event) => {
-  closePopup(popupCards)
-});
 
 function openPopupCards() {
   openPopup(popupCards);
 }
 
 //Добавление новых карточек
-function formSubmitHandlerCards(evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
 //объявление элемента с введенными пользователем данными
   const el = {
@@ -158,6 +157,7 @@ function formSubmitHandlerCards(evt) {
       link: linkImgInput.value,
     }
 // создание нового элемента
+  // createCard();
   createCard(el, "start");
 // обновлеине полей ввода
 formElementCards.reset();
@@ -165,4 +165,4 @@ formElementCards.reset();
   closePopup(popupCards);
 }
 
-formElementCards.addEventListener('submit', formSubmitHandlerCards);
+formElementCards.addEventListener('submit', handleCardFormSubmit);
