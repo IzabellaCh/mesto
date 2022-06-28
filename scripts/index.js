@@ -98,7 +98,7 @@ function createCard(element, position = "end") {
 
 //Объявление объектов, связанных с личной информацией
 // const popup = document.querySelector('.popup');
-const popupPersInfo = document.querySelector('.popup__type_personal-information');
+const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const editButton = document.querySelector('.profile__edit-button');
 const closeButtonInfo = document.querySelector('.popup__close-button_type_personal-information');
 const saveButtonInfo = popupPersInfo.querySelector('.popup__save-button');
@@ -131,7 +131,7 @@ function formSubmitHandlerInfo(evt) {
 formElementInfo.addEventListener('submit', formSubmitHandlerInfo);
 
 //Объявление объектов, связанных с карточками
-const popupCards = document.querySelector('.popup__type_add-new-cards');
+const popupCards = document.querySelector('.popup_type_add-new-cards');
 const addButton = document.querySelector('.profile__add-button');
 const closeButtonCards = document.querySelector('.popup__close-button_type_add-new-cards');
 const saveButtonCards = popupCards.querySelector('.popup__save-button_type_add-new-cards');
