@@ -1,5 +1,5 @@
 //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
-const popup = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 
 function openPopup(arg) {
   arg.classList.add('popup_opened');
@@ -125,7 +125,7 @@ function formSubmitHandlerInfo(evt) {
   evt.preventDefault();
   namePlace.textContent = nameInput.value;
   descriptionPlace.textContent = jobInput.value;
-  closePopupInfo();
+  closePopup(popupPersInfo);
 }
 
 formElementInfo.addEventListener('submit', formSubmitHandlerInfo);
@@ -160,8 +160,7 @@ function formSubmitHandlerCards(evt) {
 // создание нового элемента
   createCard(el, "start");
 // обновлеине полей ввода
-  placeNameInput.value = '';
-  linkImgInput.value = '';
+formElementCards.reset();
 //закрытие попапа
   closePopup(popupCards);
 }
