@@ -62,7 +62,7 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
-
+// общий универсальный слушатель на крестик для закрытия попапов
 popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if (event.target.classList.contains('popup__close-button'))
@@ -70,56 +70,47 @@ popups.forEach((popup) => {
     });
 })
 
-//создание карточек из массива
+//создание карточек из имеющегося массива
 initialCards.forEach(function (element) {
-  createCard(element);
+  renderCard(element);
 })
 
-//создание шаблона карточки с кнопками и popup для выведения большого изображения
+//создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
 
-function createCard(element, position = "end") {
+function createCard(name, link) {
   //создание шаблона
   const card = elementTemplate.querySelector('.element').cloneNode(true);
-
   //заполнение шаблона
   const cardImage =  card.querySelector('.element__image');
   const cardName =  card.querySelector('.element__title');
-
-  cardImage.src = element.link;
-  cardImage.alt = element.name + '.';
-  cardName.textContent = element.name;
-
+  cardImage.src = link;
+  cardImage.alt = name + '.';
+  cardName.textContent = name;
   //изменение состояния кнопки "like"
   const likeButton = card.querySelector('.element__like-button');
-
   likeButton.addEventListener('click', function (evt) {
   evt.target.classList.toggle('element__like-button_type_active');
 });
-
   //удаление карт
   const deleteButton = card.querySelector('.element__trash-button');
-
   deleteButton.addEventListener('click', function (evt){
     evt.preventDefault();
     card.remove();
   })
-  
-  //открытие попапа с картами
+    //открытие попапа с картами
   cardImage.addEventListener('click', openPopupCard);
-
   function openPopupCard() {
     popupImage.src = cardImage.src;
     popupImage.alt = cardName.textContent + '.';
     popupTitle.textContent = cardName.textContent;
     openPopup(popupCard);
   }
+  return card;
+}
 
-  // return element;
-
-    //добавление карты в DOM
-  if (position === 'end') {
-    cardList.append(card);
-  } else  cardList.prepend(card);
+function renderCard(element) {
+  createCard(element.name, element.link);
+  cardList.prepend(createCard(element.name, element.link));
 }
 
 //Открытие/закрытие попапа с личной информацией
@@ -131,7 +122,7 @@ function openPopupInfo() {
   openPopup(popupPersInfo);
 }
 
-//Изменение информации в профиле
+//Изменение информации в профиле при помощи попапа
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   namePlace.textContent = nameInput.value;
@@ -141,7 +132,7 @@ function handleProfileFormSubmit(evt) {
 
 formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 
-//Открытие/закрытие попапа для добавления карточек
+//Открытие попапа для добавления карточек
 addButton.addEventListener('click', openPopupCards);
 
 function openPopupCards() {
@@ -151,17 +142,16 @@ function openPopupCards() {
 //Добавление новых карточек
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-//объявление элемента с введенными пользователем данными
-  const el = {
+  //объявление элемента с введенными пользователем данными
+  const element = {
       name: placeNameInput.value,
       link: linkImgInput.value,
     }
-// создание нового элемента
-  // createCard();
-  createCard(el, "start");
-// обновлеине полей ввода
-formElementCards.reset();
-//закрытие попапа
+  // добавлеине нового элемента
+  renderCard(element);
+  // обновлеине полей ввода
+  formElementCards.reset();
+  //закрытие попапа
   closePopup(popupCards);
 }
 
