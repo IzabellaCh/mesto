@@ -71,31 +71,31 @@ popups.forEach((popup) => {
 })
 
 //создание карточек из имеющегося массива
-initialCards.forEach(function (element) {
-  renderCard(element);
+initialCards.forEach(function (card) {
+  renderCard(card);
 })
 
 //создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
 
 function createCard(name, link) {
   //создание шаблона
-  const card = elementTemplate.querySelector('.element').cloneNode(true);
+  const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
   //заполнение шаблона
-  const cardImage =  card.querySelector('.element__image');
-  const cardName =  card.querySelector('.element__title');
+  const cardImage =  cardElement.querySelector('.element__image');
+  const cardName =  cardElement.querySelector('.element__title');
   cardImage.src = link;
   cardImage.alt = name + '.';
   cardName.textContent = name;
   //изменение состояния кнопки "like"
-  const likeButton = card.querySelector('.element__like-button');
+  const likeButton = cardElement.querySelector('.element__like-button');
   likeButton.addEventListener('click', function (evt) {
   evt.target.classList.toggle('element__like-button_type_active');
 });
   //удаление карт
-  const deleteButton = card.querySelector('.element__trash-button');
+  const deleteButton = cardElement.querySelector('.element__trash-button');
   deleteButton.addEventListener('click', function (evt){
     evt.preventDefault();
-    card.remove();
+    cardElement.remove();
   })
     //открытие попапа с картами
   cardImage.addEventListener('click', openPopupCard);
@@ -105,12 +105,12 @@ function createCard(name, link) {
     popupTitle.textContent = cardName.textContent;
     openPopup(popupCard);
   }
-  return card;
+  return cardElement;
 }
 
-function renderCard(element) {
-  createCard(element.name, element.link);
-  cardList.prepend(createCard(element.name, element.link));
+function renderCard(card) {
+  const cardElement = createCard(card.name, card.link);
+  cardList.prepend(cardElement);
 }
 
 //Открытие/закрытие попапа с личной информацией
