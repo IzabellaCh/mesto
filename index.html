@@ -26,9 +26,11 @@
       <div class="popup popup_type_personal-information">
         <div class="popup__container">
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form class="popup__form popup__form_type_personal-information">
-            <input type="text" name="firstname" class="popup__field popup__field_type_name" placeholder="Имя" required>
-            <input type="text" name="description" class="popup__field popup__field_type_description" placeholder="О себе">
+          <form class="popup__form popup__form_type_personal-information" novalidate>
+            <input type="text" id="name-input" name="firstname" class="popup__field popup__field_type_name" placeholder="Имя" minlength="2" maxlength="40" required>
+            <span class="popup__field-error name-input-error"></span>
+            <input type="text" id="description-input" name="description" class="popup__field popup__field_type_description" placeholder="О себе" minlength="2" maxlength="200" required>
+            <span class="popup__field-error description-input-error"></span>
             <button type="submit" class="popup__save-button">Сохранить</button> 
           </form>
           <button class="popup__close-button button"></button>
@@ -37,9 +39,11 @@
       <div class="popup popup_type_add-new-cards">
         <div class="popup__container">
           <h2 class="popup__heading">Новое место</h2>
-          <form class="popup__form popup__form_type_add-new-cards">
-            <input type="text" name="placename" class="popup__field popup__field_type_place-name" placeholder="Название" required>
-            <input type="text" name="link-img" class="popup__field popup__field_type_link-img" placeholder="Ссылка на картинку" required>
+          <form class="popup__form popup__form_type_add-new-cards" novalidate>
+            <input type="text" id="placename-input" name="placename" class="popup__field popup__field_type_place-name" placeholder="Название" minlength="2" maxlength="30" required>
+            <span class="popup__field-error placename-input-error"></span>
+            <input type="url" id="url-input" name="link-img" class="popup__field popup__field_type_link-img" placeholder="Ссылка на картинку" required>
+            <span class="popup__field-error url-input-error"></span>
             <button type="submit" class="popup__save-button popup__save-button_type_add-new-cards">Сохранить</button> 
           </form>
           <button class="popup__close-button button"></button>
@@ -71,6 +75,7 @@
       <button class="element__trash-button button"></button>
     </div>
   </template>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

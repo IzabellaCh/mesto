@@ -70,6 +70,18 @@ popups.forEach((popup) => {
     });
 })
 
+// // общий универсальный слушатель на крестик для закрытия попапов
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (event) => {
+//     if (event.target.classList.contains('popup__close-button'))
+//       closePopup(popup);
+//     } else if (event.target.classList.contains('popup__close-button')) {
+      
+//     }
+//     );
+// })
+
+
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
   renderCard(card);
