@@ -62,25 +62,23 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
-// общий универсальный слушатель на крестик для закрытия попапов
-popups.forEach((popup) => {
-  popup.addEventListener('click', (event) => {
-    if (event.target.classList.contains('popup__close-button'))
-      closePopup(popup);
-    });
-})
 
 // // общий универсальный слушатель на крестик для закрытия попапов
 // popups.forEach((popup) => {
 //   popup.addEventListener('click', (event) => {
 //     if (event.target.classList.contains('popup__close-button'))
 //       closePopup(popup);
-//     } else if (event.target.classList.contains('popup__close-button')) {
-      
-//     }
-//     );
+//     });
 // })
 
+// общий универсальный слушатель на крестик для закрытия попапов
+popups.forEach((popup) => {
+  popup.addEventListener('click', (event) => {
+    if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
+      closePopup(popup);
+      }
+    });
+})
 
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
