@@ -63,46 +63,19 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-// // общий универсальный слушатель на крестик для закрытия попапов
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (event) => {
-//     if (event.target.classList.contains('popup__close-button'))
-//       closePopup(popup);
-//     });
-// })
-
-// // общий универсальный слушатель на крестик для закрытия попапов
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (event) => {
-//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
-//       closePopup(popup);
-//       } 
-//     });
-// })
-
-// общий универсальный слушатель на крестик для закрытия попапов
+// общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей + закрытие при нажатии на Escape
 popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
       closePopup(popup);
-      } 
+      };
     });
-  // popup.addEventListener('keydown', (event) => {
-  //   console.log(event.key);
-  //   // if (event.key === 'Esc') {
-  //   //   closePopup(popup);
-  //   // };
-  // })
-})
-
-// popups.forEach((popup) => {
-//   popup.addEventListener('keyup', (ev) => {
-//     console.log(ev.key);
-//     // if (event.key === 'Esc') {
-//     //   closePopup(popup);
-//     // };
-//   })
-// })
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closePopup(popup);
+    };
+  });
+});
 
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
