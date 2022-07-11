@@ -5,7 +5,9 @@ enableValidation({
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__field-error_active'
+  errorClass: 'popup__field-error_active',
+  editButtonSelector: '.profile__edit-button',
+  addButtonSelector: '.profile__add-button'
 });
 
 //проверка валидности форм и их полей
@@ -32,14 +34,27 @@ function hideInputError(selectors, formElement, inputElement) {
   errorElement.textContent = '';
 }
 
-//добавление обработчиков на все поля форм
+//добавление обработчиков на все поля форм + перед открытием попапов
 function setEventListeners(selectors, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
   const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
-  
-  //вызов инактивации кнопки при невалидности полей до ввода данных
-  toggleButtonState(selectors, inputList, buttonElement);
-  
+  const editingButton = document.querySelector(selectors.editButtonSelector);
+  const additionButton = document.querySelector(selectors.addButtonSelector);
+
+// вызов инактивации кнопки при невалидности полей до ввода данных 
+// (не работает, если открывать попап с созднием новой карточки несколько раз), 
+// поэтому добавила слушатели на кнопки для открытия попапов с корректируемыми данными
+//   toggleButtonState(selectors, inputList, buttonElement);
+
+  //вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
+  editingButton.addEventListener('click', () => {
+    toggleButtonState(selectors, inputList, buttonElement);
+  });
+  //вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
+  additionButton.addEventListener('click', () => {
+    toggleButtonState(selectors, inputList, buttonElement);
+  });
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkValidity(selectors, formElement, inputElement);

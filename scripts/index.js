@@ -71,14 +71,38 @@ function closePopup(popup) {
 //     });
 // })
 
+// // общий универсальный слушатель на крестик для закрытия попапов
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (event) => {
+//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
+//       closePopup(popup);
+//       } 
+//     });
+// })
+
 // общий универсальный слушатель на крестик для закрытия попапов
 popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
       closePopup(popup);
-      }
+      } 
     });
+  // popup.addEventListener('keydown', (event) => {
+  //   console.log(event.key);
+  //   // if (event.key === 'Esc') {
+  //   //   closePopup(popup);
+  //   // };
+  // })
 })
+
+// popups.forEach((popup) => {
+//   popup.addEventListener('keyup', (ev) => {
+//     console.log(ev.key);
+//     // if (event.key === 'Esc') {
+//     //   closePopup(popup);
+//     // };
+//   })
+// })
 
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
