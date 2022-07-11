@@ -1,6 +1,5 @@
 //определение списка попапов
 const popups = document.querySelectorAll('.popup');
-const closeButton = document.querySelector('.popup__close-button');
 //определение содержания шаблона для карточек
 const elementTemplate = document.querySelector('#element-template').content;
 //определение объектов для открытия большого изображения в popup 
@@ -9,8 +8,7 @@ const popupImage = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('.popup__title');
 //определение объектов, связанных с личной информацией
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
-const editButton = document.querySelector('.profile__edit-button');
-const saveButtonInfo = popupPersInfo.querySelector('.popup__save-button');
+const buttonEdit = document.querySelector('.profile__edit-button');
 const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
 const nameInput = formElementInfo.querySelector('.popup__field_type_name');
 const jobInput = formElementInfo.querySelector('.popup__field_type_description');
@@ -18,8 +16,7 @@ const namePlace = document.querySelector('.profile__name');
 const descriptionPlace = document.querySelector('.profile__subtitle');
 //Объявление объектов, связанных с карточками
 const popupCards = document.querySelector('.popup_type_add-new-cards');
-const addButton = document.querySelector('.profile__add-button');
-const saveButtonCards = popupCards.querySelector('.popup__save-button_type_add-new-cards');
+const buttonAdd = document.querySelector('.profile__add-button');
 const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
 const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
@@ -120,8 +117,8 @@ function renderCard(card) {
   cardList.prepend(cardElement);
 }
 
-//Открытие/закрытие попапа с личной информацией
-editButton.addEventListener('click', openPopupInfo);
+//Открытие попапа с личной информацией
+buttonEdit.addEventListener('click', openPopupInfo);
 
 function openPopupInfo() {
   nameInput.value = namePlace.textContent;
@@ -140,7 +137,7 @@ function handleProfileFormSubmit(evt) {
 formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 
 //Открытие попапа для добавления карточек
-addButton.addEventListener('click', openPopupCards);
+buttonAdd.addEventListener('click', openPopupCards);
 
 function openPopupCards() {
   openPopup(popupCards);
