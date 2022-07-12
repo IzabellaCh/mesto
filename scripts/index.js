@@ -74,11 +74,6 @@ popups.forEach((popup) => {
   });
 });
 
-//создание карточек из имеющегося массива
-initialCards.forEach(function (card) {
-  renderCard(card);
-})
-
 //создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
 
 function createCard(name, link) {
@@ -116,6 +111,11 @@ function renderCard(card) {
   const cardElement = createCard(card.name, card.link);
   cardList.prepend(cardElement);
 }
+
+//создание карточек из имеющегося массива
+initialCards.forEach(function (card) {
+  renderCard(card);
+})
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
