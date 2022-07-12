@@ -1,3 +1,4 @@
 .popup__field-error_active {
-  display: inline;
+  opacity: 1;
+  visibility: visible;
 }

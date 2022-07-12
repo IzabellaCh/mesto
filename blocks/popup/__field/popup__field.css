@@ -1,6 +1,6 @@
 .popup__field {
   padding: 0;
-  margin: 26px 0 0;
+  margin: 0;
   width: 100%;
   display: block;
   border: none;
@@ -13,17 +13,7 @@
   color: #000000;
 }
 
-.popup__field:first-of-type {
- margin: 0;
-}
-
 .popup__field:focus {
   outline: 1px solid rgba(0, 0, 0, 1);
   border-radius: 2px;
-}
-
-@media screen and (max-width: 690px) {
-  .popup__field {
-    margin-top: 26px;
-  }
 }
