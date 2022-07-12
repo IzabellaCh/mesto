@@ -51,27 +51,58 @@ const initialCards = [
   }
 ];
 
+//функция-аргумет для добавления слушателя на нажатие Esc на открытый попап
+function closePopupByEsc(event) {
+  if (event.key === 'Escape') {
+    const popupOpen = document.querySelector('.popup_opened');
+    closePopup(popupOpen);
+  };
+}
+
+//добавление слушателя на нажатие Esc на открытый попап
+function addListenerEsc() {
+  document.addEventListener('keydown', closePopupByEsc);
+};
+
+//удаление слушателя на нажатие Esc на открытый попап
+function removeListenerEsc() {
+  document.removeEventListener('keydown', closePopupByEsc);
+};
+
 //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  addListenerEsc(popup);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  removeListenerEsc(popup);
 }
 
-// общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей + закрытие при нажатии на Escape
+//общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей + закрытие при нажатии на Escape 
+//(но в чек-листе сказано добавлять и удалять слушатель на esc при каждом открытии/закрытии, 
+//поэтому переписала вторую часть данной функции на несколько, код выше)
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (event) => {
+//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
+//       closePopup(popup);
+//       };
+//     });
+//   document.addEventListener('keydown', function(event) {
+//     if (event.key === 'Escape') {
+//       closePopup(popup);
+//     };
+//   });
+// });
+
+// общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
 popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
       closePopup(popup);
       };
     });
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      closePopup(popup);
-    };
-  });
 });
 
 //создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
