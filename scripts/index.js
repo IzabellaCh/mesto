@@ -1,7 +1,10 @@
+import { Card } from "./Card.js";
+
 //определение списка попапов
 const popups = document.querySelectorAll('.popup');
 //определение содержания шаблона для карточек
-const elementTemplate = document.querySelector('#element-template').content;
+// const elementTemplate = document.querySelector('#element-template').content;
+
 //определение объектов для открытия большого изображения в popup 
 const popupCard = document.querySelector('.popup_type_card');
 const popupImage = document.querySelector('.popup__image');
@@ -23,6 +26,7 @@ const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img
 
 //определение области для вставки массива
 const cardList = document.querySelector('.elements__list');
+
 //определение начального массива
 const initialCards = [
   {
@@ -80,22 +84,6 @@ function closePopup(popup) {
   removeListenerEsc(popup);
 }
 
-//общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей + закрытие при нажатии на Escape 
-//(но в чек-листе сказано добавлять и удалять слушатель на esc при каждом открытии/закрытии, 
-//поэтому переписала вторую часть данной функции на несколько, код выше)
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (event) => {
-//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
-//       closePopup(popup);
-//       };
-//     });
-//   document.addEventListener('keydown', function(event) {
-//     if (event.key === 'Escape') {
-//       closePopup(popup);
-//     };
-//   });
-// });
-
 // общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
 popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
@@ -105,48 +93,72 @@ popups.forEach((popup) => {
     });
 });
 
+
+
 //создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
 
-function createCard(name, link) {
-  //создание шаблона
-  const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
-  //заполнение шаблона
-  const cardImage =  cardElement.querySelector('.element__image');
-  const cardName =  cardElement.querySelector('.element__title');
-  cardImage.src = link;
-  cardImage.alt = name + '.';
-  cardName.textContent = name;
-  //изменение состояния кнопки "like"
-  const likeButton = cardElement.querySelector('.element__like-button');
-  likeButton.addEventListener('click', function (evt) {
-  evt.target.classList.toggle('element__like-button_type_active');
-});
-  //удаление карт
-  const deleteButton = cardElement.querySelector('.element__trash-button');
-  deleteButton.addEventListener('click', function (evt){
-    evt.preventDefault();
-    cardElement.remove();
-  })
-    //открытие попапа с картами
-  cardImage.addEventListener('click', openPopupCard);
-  function openPopupCard() {
-    popupImage.src = cardImage.src;
-    popupImage.alt = cardName.textContent + '.';
-    popupTitle.textContent = cardName.textContent;
-    openPopup(popupCard);
-  }
-  return cardElement;
-}
+// function createCard(name, link) {
+//   //создание шаблона
+//   const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
+
+//   //заполнение шаблона
+//   const cardImage = cardElement.querySelector('.element__image');
+//   const cardName = cardElement.querySelector('.element__title');
+//   cardImage.src = link;
+//   cardImage.alt = name + '.';
+//   cardName.textContent = name;
+
+//   //изменение состояния кнопки "like"
+//   const likeButton = cardElement.querySelector('.element__like-button');
+//   likeButton.addEventListener('click', function (evt) {
+//   evt.target.classList.toggle('element__like-button_type_active');
+// });
+//   //удаление карт
+//   const deleteButton = cardElement.querySelector('.element__trash-button');
+//   deleteButton.addEventListener('click', function (evt){
+//     evt.preventDefault();
+//     cardElement.remove();
+//   })
+//     //открытие попапа с картами
+//   cardImage.addEventListener('click', openPopupCard);
+//   function openPopupCard() {
+//     popupImage.src = cardImage.src;
+//     popupImage.alt = cardName.textContent + '.';
+//     popupTitle.textContent = cardName.textContent;
+//     openPopup(popupCard);
+//   }
+//   return cardElement;
+// }
+
+// function renderCard(card) {
+//   const cardElement = createCard(card.name, card.link);
+//   cardList.prepend(cardElement);
+// }
+
+// //создание карточек из имеющегося массива
+// initialCards.forEach(function (card) {
+//   renderCard(card);
+// })
+
+
 
 function renderCard(card) {
-  const cardElement = createCard(card.name, card.link);
+  const cardObject = new Card(card.name, card.link);
+  const cardElement = cardObject.generateCard();
+
   cardList.prepend(cardElement);
 }
+
 
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
   renderCard(card);
 })
+
+
+
+
+
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
