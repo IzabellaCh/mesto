@@ -1,22 +1,23 @@
 
 //переменные, используемые в классе Card
-const elementTemplate = document.querySelector('#element-template').content;
+// const elementTemplate = document.querySelector('#element-template').content;
 // const cardImage = elementTemplate.querySelector('.element__image');
-// const cardName = elementTemplate.querySelector('.element__title');
-const likeButton = elementTemplate.querySelector('.element__like-button');
-const deleteButton = elementTemplate.querySelector('.element__trash-button');
+// // const cardName = elementTemplate.querySelector('.element__title');
+// const likeButton = elementTemplate.querySelector('.element__like-button');
+// const deleteButton = elementTemplate.querySelector('.element__trash-button');
 
 //Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
 
 class Card {
   //принимает в конструктор её данные и селектор её template-элемента
-  constructor(name, link) {
-    this._link = link;
-    this._name = name;
+  constructor(data, templateSelector) {
+    this._link = data.link;
+    this._name = data.name;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate() {
-    const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     return cardElement;
   }
   

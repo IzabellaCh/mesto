@@ -143,7 +143,7 @@ popups.forEach((popup) => {
 
 
 function renderCard(card) {
-  const cardObject = new Card(card.name, card.link);
+  const cardObject = new Card(card, '.element-template_type_default');
   const cardElement = cardObject.generateCard();
 
   cardList.prepend(cardElement);
@@ -154,10 +154,6 @@ function renderCard(card) {
 initialCards.forEach(function (card) {
   renderCard(card);
 })
-
-
-
-
 
 
 //Открытие попапа с личной информацией
