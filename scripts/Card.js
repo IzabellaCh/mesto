@@ -20,15 +20,34 @@ class Card {
     const cardElement = document.querySelector(this._templateSelector).content.querySelector('.element').cloneNode(true);
     return cardElement;
   }
-  
+
   generateCard() {
     this._element = this._getTemplate();
+    this._setEventListeners();
 
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__image').alt = this._name + '.';
     this._element.querySelector('.element__title').textContent = this._name;
 
     return this._element;
+  }
+
+  _handleLikeButton() {
+    this._element.querySelector('.element__like-button').classList.toggle('element__like-button_type_active');
+  }
+  
+  _handleDeleteButton() {
+    this._element.remove();
+  }
+
+  _setEventListeners() {
+    this._element.querySelector('.element__like-button').addEventListener('click', () => {
+      this._handleLikeButton();
+    }); 
+
+    this._element.querySelector('.element__trash-button').addEventListener('click', () => {
+      this._handleDeleteButton();
+    });
   }
 }
 
