@@ -2,13 +2,16 @@ import { Card } from "./Card.js";
 
 //определение списка попапов
 const popups = document.querySelectorAll('.popup');
+
 //определение содержания шаблона для карточек
 // const elementTemplate = document.querySelector('#element-template').content;
 
-//определение объектов для открытия большого изображения в popup 
-const popupCard = document.querySelector('.popup_type_card');
-const popupImage = document.querySelector('.popup__image');
-const popupTitle = document.querySelector('.popup__title');
+// //определение объектов для открытия большого изображения в popup 
+// const popupCard = document.querySelector('.popup_type_card');
+// const popupImage = document.querySelector('.popup__image');
+// const popupTitle = document.querySelector('.popup__title');
+
+
 //определение объектов, связанных с личной информацией
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -119,6 +122,8 @@ popups.forEach((popup) => {
 //     evt.preventDefault();
 //     cardElement.remove();
 //   })
+
+
 //     //открытие попапа с картами
 //   cardImage.addEventListener('click', openPopupCard);
 //   function openPopupCard() {
@@ -142,8 +147,9 @@ popups.forEach((popup) => {
 
 
 
+
 function renderCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default');
+  const cardObject = new Card(card, '.element-template_type_default', openPopup);
   const cardElement = cardObject.generateCard();
 
   cardList.prepend(cardElement);

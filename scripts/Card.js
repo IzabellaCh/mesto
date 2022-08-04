@@ -1,19 +1,9 @@
-
-//переменные, используемые в классе Card
-// const elementTemplate = document.querySelector('#element-template').content;
-// const cardImage = elementTemplate.querySelector('.element__image');
-// // const cardName = elementTemplate.querySelector('.element__title');
-// const likeButton = elementTemplate.querySelector('.element__like-button');
-// const deleteButton = elementTemplate.querySelector('.element__trash-button');
-
-//Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
-
 class Card {
-  //принимает в конструктор её данные и селектор её template-элемента
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openPopup) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
+    this._openPopup = openPopup;
   }
 
   _getTemplate() {
@@ -23,33 +13,53 @@ class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.element__image');
+    this._likeButton = this._element.querySelector('.element__like-button');
+    this._cardName = this._element.querySelector('.element__title');
+    this._deleteButton = this._element.querySelector('.element__trash-button');
+
     this._setEventListeners();
 
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name + '.';
-    this._element.querySelector('.element__title').textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name + '.';
+    this._cardName.textContent = this._name;
 
     return this._element;
   }
 
   _handleLikeButton() {
-    this._element.querySelector('.element__like-button').classList.toggle('element__like-button_type_active');
+    this._likeButton.classList.toggle('element__like-button_type_active');
   }
   
   _handleDeleteButton() {
     this._element.remove();
   }
 
+  _handleOpenPopupCard() {
+    const popupCard = document.querySelector('.popup_type_card');
+    const popupImage = document.querySelector('.popup__image');
+    const popupTitle = document.querySelector('.popup__title');
+
+    popupImage.src = this._link;
+    popupImage.alt = this._name + '.';
+    popupTitle.textContent = this._name;
+
+    this._openPopup(popupCard);
+  }
+
   _setEventListeners() {
-    this._element.querySelector('.element__like-button').addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
     }); 
 
-    this._element.querySelector('.element__trash-button').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDeleteButton();
+    });
+
+    this._cardImage.addEventListener('click', () => {
+      this._handleOpenPopupCard();
     });
   }
 }
 
 export { Card };
-
