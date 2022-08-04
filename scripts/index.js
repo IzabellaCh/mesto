@@ -1,17 +1,8 @@
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 //определение списка попапов
 const popups = document.querySelectorAll('.popup');
-
-//определение содержания шаблона для карточек
-// const elementTemplate = document.querySelector('#element-template').content;
-
-// //определение объектов для открытия большого изображения в popup 
-// const popupCard = document.querySelector('.popup_type_card');
-// const popupImage = document.querySelector('.popup__image');
-// const popupTitle = document.querySelector('.popup__title');
-
-
 //определение объектов, связанных с личной информацией
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -96,21 +87,16 @@ popups.forEach((popup) => {
     });
 });
 
-
-
 //создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
-
 // function createCard(name, link) {
 //   //создание шаблона
 //   const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
-
 //   //заполнение шаблона
 //   const cardImage = cardElement.querySelector('.element__image');
 //   const cardName = cardElement.querySelector('.element__title');
 //   cardImage.src = link;
 //   cardImage.alt = name + '.';
 //   cardName.textContent = name;
-
 //   //изменение состояния кнопки "like"
 //   const likeButton = cardElement.querySelector('.element__like-button');
 //   likeButton.addEventListener('click', function (evt) {
@@ -122,8 +108,6 @@ popups.forEach((popup) => {
 //     evt.preventDefault();
 //     cardElement.remove();
 //   })
-
-
 //     //открытие попапа с картами
 //   cardImage.addEventListener('click', openPopupCard);
 //   function openPopupCard() {
@@ -134,18 +118,14 @@ popups.forEach((popup) => {
 //   }
 //   return cardElement;
 // }
-
 // function renderCard(card) {
 //   const cardElement = createCard(card.name, card.link);
 //   cardList.prepend(cardElement);
 // }
-
 // //создание карточек из имеющегося массива
 // initialCards.forEach(function (card) {
 //   renderCard(card);
 // })
-
-
 
 
 function renderCard(card) {
@@ -155,12 +135,10 @@ function renderCard(card) {
   cardList.prepend(cardElement);
 }
 
-
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
   renderCard(card);
 })
-
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
@@ -205,3 +183,27 @@ function handleCardFormSubmit(evt) {
 }
 
 formElementCards.addEventListener('submit', handleCardFormSubmit);
+
+const formInfoValidator = new FormValidator ({
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__field-error_active',
+  editButtonSelector: '.profile__edit-button',
+  addButtonSelector: '.profile__add-button'
+}, formElementInfo);
+
+formInfoValidator.enableValidation();
+
+const formCardsValidator = new FormValidator ({
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__field-error_active',
+  editButtonSelector: '.profile__edit-button',
+  addButtonSelector: '.profile__add-button'
+}, formElementCards);
+
+formCardsValidator.enableValidation();
