@@ -87,47 +87,6 @@ popups.forEach((popup) => {
     });
 });
 
-//создание шаблона карточки с кнопками (like, trash) и popup для выведения большого изображения
-// function createCard(name, link) {
-//   //создание шаблона
-//   const cardElement = elementTemplate.querySelector('.element').cloneNode(true);
-//   //заполнение шаблона
-//   const cardImage = cardElement.querySelector('.element__image');
-//   const cardName = cardElement.querySelector('.element__title');
-//   cardImage.src = link;
-//   cardImage.alt = name + '.';
-//   cardName.textContent = name;
-//   //изменение состояния кнопки "like"
-//   const likeButton = cardElement.querySelector('.element__like-button');
-//   likeButton.addEventListener('click', function (evt) {
-//   evt.target.classList.toggle('element__like-button_type_active');
-// });
-//   //удаление карт
-//   const deleteButton = cardElement.querySelector('.element__trash-button');
-//   deleteButton.addEventListener('click', function (evt){
-//     evt.preventDefault();
-//     cardElement.remove();
-//   })
-//     //открытие попапа с картами
-//   cardImage.addEventListener('click', openPopupCard);
-//   function openPopupCard() {
-//     popupImage.src = cardImage.src;
-//     popupImage.alt = cardName.textContent + '.';
-//     popupTitle.textContent = cardName.textContent;
-//     openPopup(popupCard);
-//   }
-//   return cardElement;
-// }
-// function renderCard(card) {
-//   const cardElement = createCard(card.name, card.link);
-//   cardList.prepend(cardElement);
-// }
-// //создание карточек из имеющегося массива
-// initialCards.forEach(function (card) {
-//   renderCard(card);
-// })
-
-
 function renderCard(card) {
   const cardObject = new Card(card, '.element-template_type_default', openPopup);
   const cardElement = cardObject.generateCard();

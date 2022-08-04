@@ -55,11 +55,11 @@ class FormValidator {
     const editingButton = document.querySelector(this._editButtonSelector);
     const additionButton = document.querySelector(this._addButtonSelector);
   
-    //вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
+    // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
     editingButton.addEventListener('click', () => {
       this._toggleButtonState(inputList, buttonElement);
     });
-    //вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
+    // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
     additionButton.addEventListener('click', () => {
       this._toggleButtonState(inputList, buttonElement);
     });
@@ -67,7 +67,7 @@ class FormValidator {
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkValidity(inputElement);
-        //вызов инактивации кнопки при невалидности полей во время ввода данных
+        // вызов инактивации кнопки при невалидности полей во время ввода данных
         this._toggleButtonState(inputList, buttonElement);
       });
     });
