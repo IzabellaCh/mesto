@@ -1,9 +1,9 @@
 class Card {
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector, openPopupCard) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
-    this._openPopup = openPopup;
+    this._openPopupCard = openPopupCard;
   }
 
   _getTemplate() {
@@ -36,18 +36,6 @@ class Card {
     this._element = null;
   }
 
-  _handleOpenPopupCard() {
-    const popupCard = document.querySelector('.popup_type_card');
-    const popupImage = document.querySelector('.popup__image');
-    const popupTitle = document.querySelector('.popup__title');
-
-    popupImage.src = this._link;
-    popupImage.alt = this._name + '.';
-    popupTitle.textContent = this._name;
-
-    this._openPopup(popupCard);
-  }
-
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
@@ -58,7 +46,7 @@ class Card {
     });
 
     this._cardImage.addEventListener('click', () => {
-      this._handleOpenPopupCard();
+      this._openPopupCard(this._link, this._name);
     });
   }
 }

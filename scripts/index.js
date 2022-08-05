@@ -20,6 +20,9 @@ const formElementCards = popupCards.querySelector('.popup__form_type_add-new-car
 const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
 const additionButton = document.querySelector('.profile__add-button');
+const popupCard = document.querySelector('.popup_type_card');
+const popupImage = popupCard.querySelector('.popup__image');
+const popupTitle = popupCard.querySelector('.popup__title');
 
 //определение области для вставки массива
 const cardList = document.querySelector('.elements__list');
@@ -72,6 +75,7 @@ function removeListenerEsc() {
 
 //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
 function openPopup(popup) {
+  console.log(popup);
   popup.classList.add('popup_opened');
   addListenerEsc(popup);
 };
@@ -92,7 +96,7 @@ popups.forEach((popup) => {
 
 // создание карточки со всеми слушателями
 function createCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default', openPopup);
+  const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
   const cardElement = cardObject.generateCard();
   return cardElement;
 };
@@ -133,6 +137,15 @@ buttonAdd.addEventListener('click', openPopupCards);
 function openPopupCards() {
   openPopup(popupCards);
 };
+
+// открытие попапа с изображеybем (используется в class Card)
+function openPopupCard(link, name) {
+  popupImage.src = link;
+  popupImage.alt = name + '.';
+  popupTitle.textContent = name;
+
+  openPopup(popupCard);
+}
 
 //Добавление новых карточек
 function handleCardFormSubmit(evt) {
