@@ -5,8 +5,10 @@ class FormValidator {
     this._inactiveButtonClass = selectors.inactiveButtonClass;
     this._inputErrorClass = selectors.inputErrorClass;
     this._errorClass = selectors.errorClass;
-    this._editButtonSelector = selectors.editButtonSelector;
-    this._addButtonSelector = selectors.addButtonSelector;
+
+    // после коррекции удалить
+    // this._editButtonSelector = selectors.editButtonSelector;
+    // this._addButtonSelector = selectors.addButtonSelector;
 
     this._formElement = formElement;
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
@@ -42,7 +44,7 @@ class FormValidator {
     });
   }
 
-  _toggleButtonState() {
+  toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
       this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.setAttribute('disabled', 'disabled');
@@ -53,26 +55,58 @@ class FormValidator {
   }
 
   _setEventListeners() {
-    const editingButton = document.querySelector(this._editButtonSelector);
-    const additionButton = document.querySelector(this._addButtonSelector);
+    // const editingButton = document.querySelector(this._editButtonSelector);
+    // const additionButton = document.querySelector(this._addButtonSelector);
   
-    // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
-    editingButton.addEventListener('click', () => {
-      this._toggleButtonState(this._inputList, this._buttonElement);
-    });
-    // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
-    additionButton.addEventListener('click', () => {
-      this._toggleButtonState(this._inputList, this._buttonElement);
-    });
+    // // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
+    // editingButton.addEventListener('click', () => {
+    //   this.toggleButtonState();
+    // });
+    // // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
+    // additionButton.addEventListener('click', () => {
+    //   this.toggleButtonState();
+    // });
   
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkValidity(inputElement);
         // вызов инактивации кнопки при невалидности полей во время ввода данных
-        this._toggleButtonState(this._inputList, this._buttonElement);
+        this.toggleButtonState();
       });
     });
   }
+
+//   _toggleButtonState() {
+//     if (this._hasInvalidInput(this._inputList)) {
+//       this._buttonElement.classList.add(this._inactiveButtonClass);
+//       this._buttonElement.setAttribute('disabled', 'disabled');
+//     } else {
+//       this._buttonElement.classList.remove(this._inactiveButtonClass);
+//       this._buttonElement.removeAttribute('disabled');
+//     };
+//   }
+
+//   _setEventListeners() {
+//     const editingButton = document.querySelector(this._editButtonSelector);
+//     const additionButton = document.querySelector(this._addButtonSelector);
+  
+//     // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
+//     editingButton.addEventListener('click', () => {
+//       this._toggleButtonState(this._inputList, this._buttonElement);
+//     });
+//     // вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
+//     additionButton.addEventListener('click', () => {
+//       this._toggleButtonState(this._inputList, this._buttonElement);
+//     });
+  
+//     this._inputList.forEach((inputElement) => {
+//       inputElement.addEventListener('input', () => {
+//         this._checkValidity(inputElement);
+//         // вызов инактивации кнопки при невалидности полей во время ввода данных
+//         this._toggleButtonState(this._inputList, this._buttonElement);
+//       });
+//     });
+//   }
 
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {

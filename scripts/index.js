@@ -11,12 +11,17 @@ const nameInput = formElementInfo.querySelector('.popup__field_type_name');
 const jobInput = formElementInfo.querySelector('.popup__field_type_description');
 const namePlace = document.querySelector('.profile__name');
 const descriptionPlace = document.querySelector('.profile__subtitle');
+
+const editingButton = document.querySelector('.profile__edit-button');
+
 //Объявление объектов, связанных с карточками
 const popupCards = document.querySelector('.popup_type_add-new-cards');
 const buttonAdd = document.querySelector('.profile__add-button');
 const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
 const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
+
+const additionButton = document.querySelector('.profile__add-button');
 
 //определение области для вставки массива
 const cardList = document.querySelector('.elements__list');
@@ -155,11 +160,19 @@ const formInfoValidator = new FormValidator ({
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__field-error_active',
-  editButtonSelector: '.profile__edit-button',
-  addButtonSelector: '.profile__add-button'
+
+  // удалить после проверки
+  // editButtonSelector: '.profile__edit-button',
+  // addButtonSelector: '.profile__add-button'
 }, formElementInfo);
 
 formInfoValidator.enableValidation();
+
+// вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
+editingButton.addEventListener('click', () => {
+  formInfoValidator.toggleButtonState();
+});
+
 
 const formCardsValidator = new FormValidator ({
   inputSelector: '.popup__field',
@@ -167,8 +180,15 @@ const formCardsValidator = new FormValidator ({
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__field-error_active',
-  editButtonSelector: '.profile__edit-button',
-  addButtonSelector: '.profile__add-button'
+
+  // удалить после проверки
+  // editButtonSelector: '.profile__edit-button',
+  // addButtonSelector: '.profile__add-button'
 }, formElementCards);
 
 formCardsValidator.enableValidation();
+
+// вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
+additionButton.addEventListener('click', () => {
+  formInfoValidator.toggleButtonState();
+});
