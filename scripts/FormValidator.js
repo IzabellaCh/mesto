@@ -11,6 +11,7 @@ class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
+//   появление текста ошибки
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
@@ -18,6 +19,7 @@ class FormValidator {
     errorElement.classList.add(this._errorClass);
   }
 
+//   скрытие текста ошибки
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
@@ -25,6 +27,7 @@ class FormValidator {
     errorElement.textContent = '';
   }
 
+//   проверка валидности конкретных полей ввода и решение о появлении/скрутии текста ошибки
   _checkValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
@@ -33,12 +36,14 @@ class FormValidator {
     }
   }
 
+//   проверка валидности всей формы (всех полей ввода в ней)
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
+//   инактивация/активация кнопки при невалидности полей ввода
   toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
       this._buttonElement.classList.add(this._inactiveButtonClass);
@@ -49,6 +54,7 @@ class FormValidator {
     };
   }
 
+//   добавление обработчиков для валидации
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -56,6 +62,14 @@ class FormValidator {
         // вызов инактивации кнопки при невалидности полей во время ввода данных
         this.toggleButtonState();
       });
+    });
+  }
+
+  resetValidation() {
+    this.toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement)
     });
   }
 

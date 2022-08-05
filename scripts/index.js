@@ -75,7 +75,6 @@ function removeListenerEsc() {
 
 //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
 function openPopup(popup) {
-  console.log(popup);
   popup.classList.add('popup_opened');
   addListenerEsc(popup);
 };
@@ -118,6 +117,7 @@ buttonEdit.addEventListener('click', openPopupInfo);
 function openPopupInfo() {
   nameInput.value = namePlace.textContent;
   jobInput.value = descriptionPlace.textContent;
+  formInfoValidator.resetValidation();
   openPopup(popupPersInfo);
 };
 
