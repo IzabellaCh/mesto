@@ -117,6 +117,7 @@ buttonEdit.addEventListener('click', openPopupInfo);
 function openPopupInfo() {
   nameInput.value = namePlace.textContent;
   jobInput.value = descriptionPlace.textContent;
+  // обнуление сообщений об ошибках перед открытием попапа
   formInfoValidator.resetValidation();
   openPopup(popupPersInfo);
 };
@@ -135,6 +136,10 @@ formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 buttonAdd.addEventListener('click', openPopupCards);
 
 function openPopupCards() {
+  // обновление полей ввода
+  formElementCards.reset();
+  // обнуление сообщений об ошибках перед открытием попапа
+  formCardsValidator.resetValidation();
   openPopup(popupCards);
 };
 
@@ -157,8 +162,6 @@ function handleCardFormSubmit(evt) {
     }
   // добавлеине нового элемента
   renderCard(element);
-  // обновлеине полей ввода
-  formElementCards.reset();
   // закрытие попапа
   closePopup(popupCards);
 }
