@@ -71,12 +71,12 @@ function removeListenerEsc() {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   addListenerEsc(popup);
-}
+};
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   removeListenerEsc(popup);
-}
+};
 
 // общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
 popups.forEach((popup) => {
@@ -87,17 +87,23 @@ popups.forEach((popup) => {
     });
 });
 
-function renderCard(card) {
+// создание карточки со всеми слушателями
+function createCard(card) {
   const cardObject = new Card(card, '.element-template_type_default', openPopup);
   const cardElement = cardObject.generateCard();
+  return cardElement;
+};
 
-  cardList.prepend(cardElement);
-}
+// вставка карточки в список
+function renderCard(card) {
+  const cardItem = createCard(card);
+  cardList.prepend(cardItem);
+};
 
 //создание карточек из имеющегося массива
 initialCards.forEach(function (card) {
   renderCard(card);
-})
+});
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
@@ -106,7 +112,7 @@ function openPopupInfo() {
   nameInput.value = namePlace.textContent;
   jobInput.value = descriptionPlace.textContent;
   openPopup(popupPersInfo);
-}
+};
 
 //Изменение информации в профиле при помощи попапа
 function handleProfileFormSubmit(evt) {
@@ -114,7 +120,7 @@ function handleProfileFormSubmit(evt) {
   namePlace.textContent = nameInput.value;
   descriptionPlace.textContent = jobInput.value;
   closePopup(popupPersInfo);
-}
+};
 
 formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 
@@ -123,7 +129,7 @@ buttonAdd.addEventListener('click', openPopupCards);
 
 function openPopupCards() {
   openPopup(popupCards);
-}
+};
 
 //Добавление новых карточек
 function handleCardFormSubmit(evt) {
@@ -137,7 +143,7 @@ function handleCardFormSubmit(evt) {
   renderCard(element);
   // обновлеине полей ввода
   formElementCards.reset();
-  //закрытие попапа
+  // закрытие попапа
   closePopup(popupCards);
 }
 
