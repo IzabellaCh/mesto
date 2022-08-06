@@ -11,7 +11,6 @@ const nameInput = formElementInfo.querySelector('.popup__field_type_name');
 const jobInput = formElementInfo.querySelector('.popup__field_type_description');
 const namePlace = document.querySelector('.profile__name');
 const descriptionPlace = document.querySelector('.profile__subtitle');
-const editingButton = document.querySelector('.profile__edit-button');
 
 //Объявление объектов, связанных с карточками
 const popupCards = document.querySelector('.popup_type_add-new-cards');
@@ -19,7 +18,6 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
 const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
-const additionButton = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_card');
 const popupImage = popupCard.querySelector('.popup__image');
 const popupTitle = popupCard.querySelector('.popup__title');
@@ -178,12 +176,6 @@ const formInfoValidator = new FormValidator ({
 
 formInfoValidator.enableValidation();
 
-// вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа с личной информацией
-editingButton.addEventListener('click', () => {
-  formInfoValidator.toggleButtonState();
-});
-
-
 const formCardsValidator = new FormValidator ({
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__save-button',
@@ -193,8 +185,3 @@ const formCardsValidator = new FormValidator ({
 }, formElementCards);
 
 formCardsValidator.enableValidation();
-
-// вызов инактивации кнопки при невалидности полей до ввода данных при открытии попапа для создания новой карточки
-additionButton.addEventListener('click', () => {
-  formInfoValidator.toggleButtonState();
-});

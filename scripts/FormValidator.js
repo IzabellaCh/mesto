@@ -45,7 +45,7 @@ class FormValidator {
 
 //   инактивация/активация кнопки при невалидности полей ввода
   toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.setAttribute('disabled', 'disabled');
     } else {
