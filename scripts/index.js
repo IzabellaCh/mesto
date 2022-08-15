@@ -1,4 +1,5 @@
 import { Card } from "./Card.js";
+import { Section } from "./Section.js";
 import { FormValidator } from "./FormValidator.js";
 
 //определение списка попапов
@@ -22,8 +23,11 @@ const popupCard = document.querySelector('.popup_type_card');
 const popupImage = popupCard.querySelector('.popup__image');
 const popupTitle = popupCard.querySelector('.popup__title');
 
+// //определение области для вставки массива
+// const cardListSection = document.querySelector('.elements__list');
+
 //определение области для вставки массива
-const cardList = document.querySelector('.elements__list');
+const cardListSection = '.elements__list';
 
 //определение начального массива
 const initialCards = [
@@ -91,23 +95,36 @@ popups.forEach((popup) => {
     });
 });
 
-// создание карточки со всеми слушателями
-function createCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
-  const cardElement = cardObject.generateCard();
-  return cardElement;
-};
+const cardList = new Section({
+  items: initialCards,
+  renderer: (card) => {
+    const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
+    const cardElement = cardObject.generateCard();
+    return cardElement;
+  },
+},
+cardListSection
+);
 
-// вставка карточки в список
-function renderCard(card) {
-  const cardItem = createCard(card);
-  cardList.prepend(cardItem);
-};
+cardList.renderItems();
 
-//создание карточек из имеющегося массива
-initialCards.forEach(function (card) {
-  renderCard(card);
-});
+// // создание карточки со всеми слушателями без классов - пока оставила код
+// function createCard(card) {
+//   const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
+//   const cardElement = cardObject.generateCard();
+//   return cardElement;
+// };
+
+// // вставка карточки в список
+// function renderCard(card) {
+//   const cardItem = createCard(card);
+//   cardListSection.prepend(cardItem);//в классе
+// };
+
+// //создание карточек из имеющегося массива
+// initialCards.forEach(function (card) {
+//   renderCard(card);
+// });
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
@@ -154,15 +171,41 @@ function openPopupCard(link, name) {
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
   //объявление элемента с введенными пользователем данными
-  const element = {
+  const element = [{
       name: placeNameInput.value,
       link: linkImgInput.value,
-    }
-  // добавлеине нового элемента
-  renderCard(element);
+    }]
+  // добавление нового элемента
+  const cardListAdd = new Section({
+    items: element,
+    renderer: (card) => {
+      const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
+      const cardElement = cardObject.generateCard();
+      return cardElement;
+    },
+  },
+  cardListSection
+  );
+
+  cardListAdd.renderItems();
+
   // закрытие попапа
   closePopup(popupCards);
 }
+
+// //Добавление новых карточек без классов - пока оставила код
+// function handleCardFormSubmit(evt) {
+//   evt.preventDefault();
+//   //объявление элемента с введенными пользователем данными
+//   const element = {
+//       name: placeNameInput.value,
+//       link: linkImgInput.value,
+//     }
+//   // добавлеине нового элемента
+//   renderCard(element);
+//   // закрытие попапа
+//   closePopup(popupCards);
+// }
 
 formElementCards.addEventListener('submit', handleCardFormSubmit);
 
