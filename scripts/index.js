@@ -1,6 +1,9 @@
-import { Card } from "./Card.js";
-import { Section } from "./Section.js";
-import { FormValidator } from "./FormValidator.js";
+import { Card } from './Card.js';
+import { Section } from './Section.js';
+
+import { PopupuWithImage } from "./PopupWithImage.js";
+
+import { FormValidator } from './FormValidator.js';
 
 //определение списка попапов
 const popups = document.querySelectorAll('.popup');
@@ -19,9 +22,12 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
 const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
-const popupCard = document.querySelector('.popup_type_card');
-const popupImage = popupCard.querySelector('.popup__image');
-const popupTitle = popupCard.querySelector('.popup__title');
+
+
+// // в класс PopupWithImage
+// const popupCard = document.querySelector('.popup_type_card');
+// const popupImage = popupCard.querySelector('.popup__image');
+// const popupTitle = popupCard.querySelector('.popup__title');
 
 // //определение области для вставки массива
 // const cardListSection = document.querySelector('.elements__list');
@@ -57,48 +63,66 @@ const initialCards = [
   }
 ];
 
-//функция-аргумет для добавления слушателя на нажатие Esc на открытый попап
-function closePopupByEsc(event) {
-  if (event.key === 'Escape') {
-    const popupOpen = document.querySelector('.popup_opened');
-    closePopup(popupOpen);
-  };
-}
 
-//добавление слушателя на нажатие Esc на открытый попап
-function addListenerEsc() {
-  document.addEventListener('keydown', closePopupByEsc);
-};
 
-//удаление слушателя на нажатие Esc на открытый попап
-function removeListenerEsc() {
-  document.removeEventListener('keydown', closePopupByEsc);
-};
 
-//общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  addListenerEsc(popup);
-};
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  removeListenerEsc(popup);
-};
 
-// общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
-popups.forEach((popup) => {
-  popup.addEventListener('click', (event) => {
-    if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
-      closePopup(popup);
-      };
-    });
-});
+// Это ушло в класс Popup
+// // Основые функции открытия,закрытия попапов
+// //функция-аргумет для добавления слушателя на нажатие Esc на открытый попап
+// function closePopupByEsc(event) {
+//   if (event.key === 'Escape') {
+//     const popupOpen = document.querySelector('.popup_opened');
+//     closePopup(popupOpen);
+//   };
+// }
 
+// // внесла в добавление слушателей
+// //добавление слушателя на нажатие Esc на открытый попап
+// function addListenerEsc() {
+//   document.addEventListener('keydown', closePopupByEsc);
+// };
+
+// // внесла просто в закрытие
+// //удаление слушателя на нажатие Esc на открытый попап
+// function removeListenerEsc() {
+//   document.removeEventListener('keydown', closePopupByEsc);
+// };
+
+// // внесла в класс
+// //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   addListenerEsc(popup);
+// };
+
+// // внесла в класс
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   removeListenerEsc(popup);
+// };
+
+
+// // внесла в класс
+// // общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (event) => {
+//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
+//       closePopup(popup);
+//       };
+//     });
+// });
+
+const popupCardSelector = '.popup_type_card';
+const popupWithImage = new PopupuWithImage(popupCardSelector);
+
+
+// Создание и вставка карточек из основного массива
 const cardList = new Section({
   items: initialCards,
   renderer: (card) => {
-    const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
+    const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage));
     const cardElement = cardObject.generateCard();
     return cardElement;
   },
@@ -108,7 +132,24 @@ cardListSection
 
 cardList.renderItems();
 
-// // создание карточки со всеми слушателями без классов - пока оставила код
+// Копия кода до изменения
+// // Создание и вставка карточек из основного массива
+// const cardList = new Section({
+//   items: initialCards,
+//   renderer: (card) => {
+//     const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
+//     const cardElement = cardObject.generateCard();
+//     return cardElement;
+//   },
+// },
+// cardListSection
+// );
+
+// cardList.renderItems();
+
+
+
+// // создание карточки со всеми слушателями без классов - старый код - пока оставила
 // function createCard(card) {
 //   const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
 //   const cardElement = cardObject.generateCard();
@@ -118,7 +159,7 @@ cardList.renderItems();
 // // вставка карточки в список
 // function renderCard(card) {
 //   const cardItem = createCard(card);
-//   cardListSection.prepend(cardItem);//в классе
+//   cardListSection.prepend(cardItem);
 // };
 
 // //создание карточек из имеющегося массива
@@ -158,14 +199,24 @@ function openPopupCards() {
   openPopup(popupCards);
 };
 
-// открытие попапа с изображеybем (используется в class Card)
-function openPopupCard(link, name) {
-  popupImage.src = link;
-  popupImage.alt = name + '.';
-  popupTitle.textContent = name;
 
-  openPopup(popupCard);
-}
+
+
+
+
+// // старый код открытия попапа с картинкой
+// // открытие попапа с изображеybем (используется в class Card)
+// function openPopupCard(link, name) {
+//   popupImage.src = link;
+//   popupImage.alt = name + '.';
+//   popupTitle.textContent = name;
+
+//   openPopup(popupCard);
+// }
+
+
+
+
 
 //Добавление новых карточек
 function handleCardFormSubmit(evt) {
@@ -193,7 +244,7 @@ function handleCardFormSubmit(evt) {
   closePopup(popupCards);
 }
 
-// //Добавление новых карточек без классов - пока оставила код
+// //Добавление новых карточек без классов - старый код - пока оставила
 // function handleCardFormSubmit(evt) {
 //   evt.preventDefault();
 //   //объявление элемента с введенными пользователем данными
