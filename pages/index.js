@@ -1,12 +1,12 @@
-import { Card } from './Card.js';
-import { Section } from './Section.js';
+import { Card } from '../components/Card.js';
+import { Section } from '../components/Section.js';
+import { PopupuWithImage } from "../components/PopupWithImage.js";
 
-import { PopupuWithImage } from "./PopupWithImage.js";
+import { FormValidator } from '../components/FormValidator.js';
 
-import { FormValidator } from './FormValidator.js';
+// //определение списка попапов
+// const popups = document.querySelectorAll('.popup');
 
-//определение списка попапов
-const popups = document.querySelectorAll('.popup');
 //определение объектов, связанных с личной информацией
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -24,16 +24,14 @@ const placeNameInput = formElementCards.querySelector('.popup__field_type_place-
 const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
 
 
-// // в класс PopupWithImage
-// const popupCard = document.querySelector('.popup_type_card');
-// const popupImage = popupCard.querySelector('.popup__image');
-// const popupTitle = popupCard.querySelector('.popup__title');
-
-// //определение области для вставки массива
+// //определение области для вставки массива - используется в старом коде по вставке карточек
 // const cardListSection = document.querySelector('.elements__list');
 
 //определение области для вставки массива
 const cardListSection = '.elements__list';
+
+// селекторы попапов
+const popupCardSelector = '.popup_type_card';
 
 //определение начального массива
 const initialCards = [
@@ -114,7 +112,7 @@ const initialCards = [
 //     });
 // });
 
-const popupCardSelector = '.popup_type_card';
+
 const popupWithImage = new PopupuWithImage(popupCardSelector);
 
 
