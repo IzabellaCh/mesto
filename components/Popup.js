@@ -31,13 +31,3 @@ class Popup {
 };
 
 export { Popup };
-
-
-
-
-
-// class PopupWithForm extends Popup {
-
-// };
-
-// export { PopupWithForm };

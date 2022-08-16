@@ -4,7 +4,7 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 
 import { FormValidator } from '../components/FormValidator.js';
 
-// //определение списка попапов
+// //определение списка попапов - старый код
 // const popups = document.querySelectorAll('.popup');
 
 //определение объектов, связанных с личной информацией
@@ -61,60 +61,8 @@ const initialCards = [
   }
 ];
 
-
-
-
-
-
-// Это ушло в класс Popup
-// // Основые функции открытия,закрытия попапов
-// //функция-аргумет для добавления слушателя на нажатие Esc на открытый попап
-// function closePopupByEsc(event) {
-//   if (event.key === 'Escape') {
-//     const popupOpen = document.querySelector('.popup_opened');
-//     closePopup(popupOpen);
-//   };
-// }
-
-// // внесла в добавление слушателей
-// //добавление слушателя на нажатие Esc на открытый попап
-// function addListenerEsc() {
-//   document.addEventListener('keydown', closePopupByEsc);
-// };
-
-// // внесла просто в закрытие
-// //удаление слушателя на нажатие Esc на открытый попап
-// function removeListenerEsc() {
-//   document.removeEventListener('keydown', closePopupByEsc);
-// };
-
-// // внесла в класс
-// //общие функции для открытия/закрытия попапов, будут переиспользованы ниже для каждого попапа, в т.ч. внутри функции создания карточек
-// function openPopup(popup) {
-//   popup.classList.add('popup_opened');
-//   addListenerEsc(popup);
-// };
-
-// // внесла в класс
-// function closePopup(popup) {
-//   popup.classList.remove('popup_opened');
-//   removeListenerEsc(popup);
-// };
-
-
-// // внесла в класс
-// // общий универсальный слушатель на крестик для закрытия попапов + закрытие киком на оверлей
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (event) => {
-//     if ((event.target.classList.contains('popup__close-button')) || (event.target === event.currentTarget)) {
-//       closePopup(popup);
-//       };
-//     });
-// });
-
-
+// Создание функционала для попапа с картинкой
 const popupWithImage = new PopupuWithImage(popupCardSelector);
-
 
 // Создание и вставка карточек из основного массива
 const cardList = new Section({
@@ -129,41 +77,6 @@ cardListSection
 );
 
 cardList.renderItems();
-
-// Копия кода до изменения
-// // Создание и вставка карточек из основного массива
-// const cardList = new Section({
-//   items: initialCards,
-//   renderer: (card) => {
-//     const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
-//     const cardElement = cardObject.generateCard();
-//     return cardElement;
-//   },
-// },
-// cardListSection
-// );
-
-// cardList.renderItems();
-
-
-
-// // создание карточки со всеми слушателями без классов - старый код - пока оставила
-// function createCard(card) {
-//   const cardObject = new Card(card, '.element-template_type_default', openPopupCard);
-//   const cardElement = cardObject.generateCard();
-//   return cardElement;
-// };
-
-// // вставка карточки в список
-// function renderCard(card) {
-//   const cardItem = createCard(card);
-//   cardListSection.prepend(cardItem);
-// };
-
-// //создание карточек из имеющегося массива
-// initialCards.forEach(function (card) {
-//   renderCard(card);
-// });
 
 //Открытие попапа с личной информацией
 buttonEdit.addEventListener('click', openPopupInfo);
@@ -198,24 +111,6 @@ function openPopupCards() {
 };
 
 
-
-
-
-
-// // старый код открытия попапа с картинкой
-// // открытие попапа с изображеybем (используется в class Card)
-// function openPopupCard(link, name) {
-//   popupImage.src = link;
-//   popupImage.alt = name + '.';
-//   popupTitle.textContent = name;
-
-//   openPopup(popupCard);
-// }
-
-
-
-
-
 //Добавление новых карточек
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
@@ -241,20 +136,6 @@ function handleCardFormSubmit(evt) {
   // закрытие попапа
   closePopup(popupCards);
 }
-
-// //Добавление новых карточек без классов - старый код - пока оставила
-// function handleCardFormSubmit(evt) {
-//   evt.preventDefault();
-//   //объявление элемента с введенными пользователем данными
-//   const element = {
-//       name: placeNameInput.value,
-//       link: linkImgInput.value,
-//     }
-//   // добавлеине нового элемента
-//   renderCard(element);
-//   // закрытие попапа
-//   closePopup(popupCards);
-// }
 
 formElementCards.addEventListener('submit', handleCardFormSubmit);
 
