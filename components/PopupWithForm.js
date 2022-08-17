@@ -24,13 +24,25 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener('submit', (evt) => {
         evt.preventDefault();
         this._handleFormSubmit(this._getInputValues());
-        this.close();
+        super.close();
     });
   }
 
-close() {
-  super.close();
-  this._form.reset();
-  this._resetValidation();
-}
+// в задании сказано переписать close(), 
+// а ранее в функции открытия попапов я добавляла фукнционал для очистки от ошибок, 
+// оставленных после валидации - resetValidation(), если ее вызывать в close(),
+// то при первом открытии попапа кнопка "сохранить" активна, если же ее добавлять в open(), 
+// такой неточности нет, поэтому ниже закомментировала написанный по заданию close()
+// и изменила родительский open(), чтобы не переписывать обе функции и не добавлять в open() только функцию toggleButtonState()
+//   close() {
+//     super.close();
+//     this._form.reset();
+//     this._resetValidation();
+//   }
+
+  open() {
+    this._form.reset();
+    this._resetValidation();
+    super.open();
+  }
 };

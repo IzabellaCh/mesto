@@ -3,6 +3,7 @@ import { Section } from '../components/Section.js';
 import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
+import { UserInfo } from '../components/UserInfo.js';
 
 // //определение списка попапов - старый код
 // const popups = document.querySelectorAll('.popup');
@@ -11,8 +12,8 @@ import { FormValidator } from '../components/FormValidator.js';
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
-const nameInput = formElementInfo.querySelector('.popup__field_type_name');
-const jobInput = formElementInfo.querySelector('.popup__field_type_description');
+// const nameInput = formElementInfo.querySelector('.popup__field_type_name');
+// const jobInput = formElementInfo.querySelector('.popup__field_type_description');
 
 
 const namePlace = document.querySelector('.profile__name');
@@ -22,8 +23,8 @@ const descriptionPlace = document.querySelector('.profile__subtitle');
 const popupCards = document.querySelector('.popup_type_add-new-cards');
 const buttonAdd = document.querySelector('.profile__add-button');
 const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
-const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
-const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
+// const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
+// const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
 
 
 // //определение области для вставки массива - используется в старом коде по вставке карточек
@@ -36,6 +37,11 @@ const cardListSection = '.elements__list';
 const popupCardSelector = '.popup_type_card';
 const popupPersInfoSelector = '.popup_type_personal-information';
 const popupNewCardSelector = '.popup_type_add-new-cards';
+
+// селекторы личной информации
+const userNameSelector = '.profile__name';
+const userDescriptionSelector = '.profile__subtitle';
+
 
 //определение начального массива
 const initialCards = [
@@ -64,6 +70,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+const userInfo = new UserInfo(userNameSelector, userDescriptionSelector);
 
 const formInfoValidator = new FormValidator ({
   inputSelector: '.popup__field',
@@ -108,12 +116,22 @@ cardList.renderItems();
 const popupWithPersInfoForm = new PopupWithForm(
   popupPersInfoSelector,
   {handleFormSubmit: (formData) => {
-    namePlace.textContent = formData.firstname;
-    descriptionPlace.textContent = formData.description;
+    userInfo.setUserInfo(formData);
     }
   },
   formInfoValidator.resetValidation.bind(formInfoValidator)
 );
+
+
+// const popupWithPersInfoForm = new PopupWithForm(
+//   popupPersInfoSelector,
+//   {handleFormSubmit: (formData) => {
+//     namePlace.textContent = formData.name;
+//     descriptionPlace.textContent = formData.description;
+//     }
+//   },
+//   formInfoValidator.resetValidation.bind(formInfoValidator)
+// );
 
 // + обработчики для попапа с персональной информацией
 popupWithPersInfoForm.setEventListeners();
