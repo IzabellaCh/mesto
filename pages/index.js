@@ -108,7 +108,6 @@ cardList.renderItems();
 const popupWithPersInfoForm = new PopupWithForm(
   popupPersInfoSelector,
   {handleFormSubmit: (formData) => {
-    console.log(formData)
     namePlace.textContent = formData.firstname;
     descriptionPlace.textContent = formData.description;
     }
@@ -142,43 +141,38 @@ buttonEdit.addEventListener('click', popupWithPersInfoForm.open.bind(popupWithPe
 
 // formElementInfo.addEventListener('submit', handleProfileFormSubmit);
 
+const popupWithNewCardForm = new PopupWithForm(
+  popupNewCardSelector,
+  {handleFormSubmit: (formData) => {
+    // создание элемента с данными пользователя
+    const element = [{
+        name: formData.placename,
+        link: formData.link,
+      }];
 
-
-
-
-
-// const popupWithNewCardForm = new PopupWithForm(
-//   popupNewCardSelector,
-//   {handleFormSubmit: (formData) => {
-//     console.log(formData);
-//     const element = [{
-//         name: formData.placename,
-//         link: formData.link,
-//       }];
-
-//       // добавление нового элемента
-//     const cardListAdd = new Section({
-//         items: element,
-//         renderer: (card) => {
-//             const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage));
-//             const cardElement = cardObject.generateCard.bind(cardObject);
-//             return cardElement;
-//           },
-//         },
-//         cardListSection
-//       );
+      // добавление нового элемента
+    const cardListAdd = new Section({
+        items: element,
+        renderer: (card) => {
+          // создание новой карточки
+            const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage));
+            const cardElement = cardObject.generateCard();
+            return cardElement;
+          },
+        },
+        cardListSection
+      );
       
-//       cardListAdd.renderItems.bind(cardListAdd);
-//     }
-//   },
-//   formCardsValidator.resetValidation.bind(formCardsValidator)
-// );
+      cardListAdd.renderItems();
+    }
+  },
+  formCardsValidator.resetValidation.bind(formCardsValidator)
+);
 
-// // Открытие попапа для добавления карточек
-// buttonAdd.addEventListener('click', popupWithNewCardForm.open.bind(popupWithNewCardForm));
+popupWithNewCardForm.setEventListeners();
 
-
-
+// Открытие попапа для добавления карточек
+buttonAdd.addEventListener('click', popupWithNewCardForm.open.bind(popupWithNewCardForm));
 
 // //Открытие попапа для добавления карточек
 // buttonAdd.addEventListener('click', openPopupCards);
