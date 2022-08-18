@@ -12,8 +12,11 @@ import { UserInfo } from '../components/UserInfo.js';
 const popupPersInfo = document.querySelector('.popup_type_personal-information');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
-// const nameInput = formElementInfo.querySelector('.popup__field_type_name');
-// const jobInput = formElementInfo.querySelector('.popup__field_type_description');
+const nameInput = formElementInfo.querySelector('.popup__field_type_name');
+const jobInput = formElementInfo.querySelector('.popup__field_type_description');
+// const userNameInputSelector = '.popup__field_type_name';
+// const userDescriptionInputSelector = '.popup__field_type_description';
+
 
 
 const namePlace = document.querySelector('.profile__name');
@@ -136,7 +139,13 @@ const popupWithPersInfoForm = new PopupWithForm(
 // + обработчики для попапа с персональной информацией
 popupWithPersInfoForm.setEventListeners();
 
-buttonEdit.addEventListener('click', popupWithPersInfoForm.open.bind(popupWithPersInfoForm));
+// buttonEdit.addEventListener('click', popupWithPersInfoForm.open.bind(popupWithPersInfoForm));
+
+buttonEdit.addEventListener('click', () => {
+  popupWithPersInfoForm.open.bind(popupWithPersInfoForm)();
+  nameInput.value = userInfo.getUserInfo().name;
+  jobInput.value = userInfo.getUserInfo().description;
+});
 
 // создание функционала экземпляра попапа с новой карточкой
 const popupWithNewCardForm = new PopupWithForm(

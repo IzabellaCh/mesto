@@ -1,13 +1,14 @@
 import { Popup } from './Popup.js';
 
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, {handleFormSubmit}, resetValidation) {
+  constructor(popupSelector, {handleFormSubmit}, resetValidation, /*addPersonalInfo*/) {
     super(popupSelector);
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__field');
 
     this._handleFormSubmit = handleFormSubmit;
     this._resetValidation = resetValidation;
+    // this._addPersonalInfo - addPersonalInfo;
   }
 
 //  собирает данные всех полей формы
