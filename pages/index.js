@@ -4,75 +4,7 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-
-// //определение списка попапов - старый код
-// const popups = document.querySelectorAll('.popup');
-
-// определение объектов, связанных с личной информацией
-const popupPersInfo = document.querySelector('.popup_type_personal-information');
-const buttonEdit = document.querySelector('.profile__edit-button');
-const formElementInfo = popupPersInfo.querySelector('.popup__form_type_personal-information');
-const nameInput = formElementInfo.querySelector('.popup__field_type_name');
-const jobInput = formElementInfo.querySelector('.popup__field_type_description');
-// const userNameInputSelector = '.popup__field_type_name';
-// const userDescriptionInputSelector = '.popup__field_type_description';
-
-
-
-const namePlace = document.querySelector('.profile__name');
-const descriptionPlace = document.querySelector('.profile__subtitle');
-
-//Объявление объектов, связанных с карточками
-const popupCards = document.querySelector('.popup_type_add-new-cards');
-const buttonAdd = document.querySelector('.profile__add-button');
-const formElementCards = popupCards.querySelector('.popup__form_type_add-new-cards');
-// const placeNameInput = formElementCards.querySelector('.popup__field_type_place-name');
-// const linkImgInput = formElementCards.querySelector('.popup__field_type_link-img');
-
-
-// //определение области для вставки массива - используется в старом коде по вставке карточек
-// const cardListSection = document.querySelector('.elements__list');
-
-//определение области для вставки массива
-const cardListSection = '.elements__list';
-
-// селекторы попапов
-const popupCardSelector = '.popup_type_card';
-const popupPersInfoSelector = '.popup_type_personal-information';
-const popupNewCardSelector = '.popup_type_add-new-cards';
-
-// селекторы личной информации
-const userNameSelector = '.profile__name';
-const userDescriptionSelector = '.profile__subtitle';
-
-
-//определение начального массива
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import { buttonEdit, formElementInfo, nameInput, jobInput, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, initialCards } from '../utils/constants.js';
 
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector);
 
@@ -125,21 +57,8 @@ const popupWithPersInfoForm = new PopupWithForm(
   formInfoValidator.resetValidation.bind(formInfoValidator)
 );
 
-
-// const popupWithPersInfoForm = new PopupWithForm(
-//   popupPersInfoSelector,
-//   {handleFormSubmit: (formData) => {
-//     namePlace.textContent = formData.name;
-//     descriptionPlace.textContent = formData.description;
-//     }
-//   },
-//   formInfoValidator.resetValidation.bind(formInfoValidator)
-// );
-
 // + обработчики для попапа с персональной информацией
 popupWithPersInfoForm.setEventListeners();
-
-// buttonEdit.addEventListener('click', popupWithPersInfoForm.open.bind(popupWithPersInfoForm));
 
 buttonEdit.addEventListener('click', () => {
   popupWithPersInfoForm.open.bind(popupWithPersInfoForm)();
