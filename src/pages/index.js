@@ -8,8 +8,7 @@ import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, initialCards } from '../utils/constants.js';
 
-const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
-userInfo.renderUserInfo();
+const userInfo = new UserInfo(userNameSelector, userDescriptionSelector);
 
 // экземпляры классов валидации для форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -87,7 +86,10 @@ buttonAdd.addEventListener('click', () => {
 
 
 // новая часть кода для работы с API:
+import { Api } from '../components/Api.js';
 
+const api = new Api();
+api.getServerUserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
 
 
 
