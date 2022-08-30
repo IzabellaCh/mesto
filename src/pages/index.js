@@ -6,9 +6,10 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, initialCards } from '../utils/constants.js';
+import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, initialCards } from '../utils/constants.js';
 
-const userInfo = new UserInfo(userNameSelector, userDescriptionSelector);
+const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
+userInfo.renderUserInfo();
 
 // экземпляры классов валидации для форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -82,3 +83,11 @@ buttonAdd.addEventListener('click', () => {
   // открытие попапа
   popupWithNewCardForm.open.bind(popupWithNewCardForm)();
 });
+
+
+
+// новая часть кода для работы с API:
+
+
+
+

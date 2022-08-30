@@ -19,6 +19,7 @@ export const popupNewCardSelector = '.popup_type_add-new-cards';
 // селекторы личной информации
 export const userNameSelector = '.profile__name';
 export const userDescriptionSelector = '.profile__subtitle';
+export const userAvatarSelector = '.profile__photo';
 
 //определение начального массива
 export const initialCards = [
