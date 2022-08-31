@@ -86,4 +86,8 @@ export class Api {
     })
   }
 
+//   countLike() {
+//     this._likeCounter.textContent = `${cardInfo.likes.length} - 1`;
+//   }
+
 }
