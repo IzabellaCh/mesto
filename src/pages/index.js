@@ -92,8 +92,16 @@ const popupWithNewCardForm = new PopupWithForm(
       name: formData.placename,
       link: formData.link,
     };
-    const newCardElement = createCard(element);
-    cardList.addItem(newCardElement);
+
+    // отрисовка новой карточки без запроса - старый код
+    // const newCardElement = createCard(element);
+    // cardList.addItem(newCardElement);
+
+    // отправка запроса на сервер для создания новой карточки и ее добавление
+    api.createNewCard(element).then((data) => {
+      const newCardElement = createCard(data);
+      cardList.addItem(newCardElement);
+    })
     }
   }
 );
