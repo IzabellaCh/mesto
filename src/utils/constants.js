@@ -15,6 +15,7 @@ export const cardListSection = '.elements__list';
 export const popupCardSelector = '.popup_type_card';
 export const popupPersInfoSelector = '.popup_type_personal-information';
 export const popupNewCardSelector = '.popup_type_add-new-cards';
+export const popupDeleteSelector = '.popup_type_delete-card';
 
 // селекторы личной информации
 export const userNameSelector = '.profile__name';

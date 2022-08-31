@@ -6,7 +6,9 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector } from '../utils/constants.js';
+import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
+
+import { Popup } from '../components/Popup.js';
 
 
 
@@ -22,6 +24,7 @@ const api = new Api();
 
 
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
+
 
 // вставка личной информации с сервера
 api.getServerUserInfo().then((data) => {
@@ -40,9 +43,12 @@ formCardsValidator.enableValidation();
 const popupWithImage = new PopupuWithImage(popupCardSelector);
 popupWithImage.setEventListeners();
 
+const popupDelete = new Popup(popupDeleteSelector);
+popupDelete.setEventListeners();
+
 // функция создания новой карточки
 function createCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage));
+  const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete));
   const cardElement = cardObject.generateCard();
   return cardElement;
 }
