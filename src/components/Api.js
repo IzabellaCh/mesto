@@ -22,19 +22,22 @@ export class Api {
     })
   }
 
-//   getInitialCards() {
-//     return fetch('https://mesto.nomoreparties.co/v1/cohortId/cards', {
-//       headers: {
-//         authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
-//       }
-//     })
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json();
-//       }
-//       return Promise.reject(`Ошибка: ${res.status}`);
-//     })
-//     .then
-//   }
+// запрос для создания массива карточек
+  getInitialCards() {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards', {
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+      }
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      alert(`Ошибка при загрузке массива карточек: ${err}`);
+    })
+  }
 
 }

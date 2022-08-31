@@ -6,9 +6,28 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, initialCards } from '../utils/constants.js';
+import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector } from '../utils/constants.js';
+
+
+
+
+
+// новая часть кода для работы с API:
+
+import { Api } from '../components/Api.js';
+
+const api = new Api();
+
+
+
 
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
+
+// вставка личной информации с сервера
+api.getServerUserInfo().then((data) => {
+  userInfo.renderUserInfo(data);
+});
+
 
 // экземпляры классов валидации для форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -31,8 +50,13 @@ function createCard(card) {
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);
 
-// добавление карточек из основного массива
-cardList.renderItems(initialCards);
+// // добавление карточек из основного массива - старый код
+// cardList.renderItems(initialCards);
+
+// добавление карточек основного массива с помощью класса api и запроса на сервер
+api.getInitialCards().then((data) => {
+  cardList.renderItems(data);
+})
 
 // создание функционала экземпляра попапа с персональной информацией
 const popupWithPersInfoForm = new PopupWithForm(
@@ -85,16 +109,7 @@ buttonAdd.addEventListener('click', () => {
 
 
 
-// новая часть кода для работы с API:
 
-import { Api } from '../components/Api.js';
-
-const api = new Api();
-
-// вставка личной информации с сервера
-api.getServerUserInfo().then((data) => {
-  userInfo.renderUserInfo(data);
-});
 
 
 
