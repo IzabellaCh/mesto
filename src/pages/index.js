@@ -86,10 +86,15 @@ buttonAdd.addEventListener('click', () => {
 
 
 // новая часть кода для работы с API:
+
 import { Api } from '../components/Api.js';
 
 const api = new Api();
-api.getServerUserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
+
+// вставка личной информации с сервера
+api.getServerUserInfo().then((data) => {
+  userInfo.renderUserInfo(data);
+});
 
 
 
