@@ -40,4 +40,27 @@ export class Api {
     })
   }
 
+  changeUserInfo(newInfo) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: `${newInfo.name}`,
+        about: `${newInfo.description}`
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      alert(`Ошибка при обновлнии данных пользователя: ${err}`);
+    })
+  }
+
 }

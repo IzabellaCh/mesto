@@ -63,6 +63,8 @@ const popupWithPersInfoForm = new PopupWithForm(
   popupPersInfoSelector,
   {handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
+    // сохранение новой инфрмации о пользователе посредством запроса PATCH
+    api.changeUserInfo(formData);
     }
   }
 );
