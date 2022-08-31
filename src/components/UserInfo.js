@@ -9,7 +9,7 @@ export class UserInfo {
   renderUserInfo(data) {
     this._userName.textContent = data.name;
     this._userDescription.textContent = data.about;
-    this._avatar = data.avatar;
+    this._avatar.src = data.avatar;
   }
 
   getUserInfo() {
