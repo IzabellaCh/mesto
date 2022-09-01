@@ -20,11 +20,10 @@ import { Api } from '../components/Api.js';
 
 const api = new Api();
 
+// объект, в который после запроса информации о пользователе с сервера и вызова userInfo.renderUserInfo будет вписан ключ "id" с его значением 
+const userOwner = {};
 
-
-
-const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
-
+const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
 // вставка личной информации с сервера
 api.getServerUserInfo().then((data) => {
@@ -46,9 +45,9 @@ popupWithImage.setEventListeners();
 const popupDelete = new Popup(popupDeleteSelector);
 popupDelete.setEventListeners();
 
-// функция создания новой карточки
+// функция создания новой карточки - НУЖНО ДОБАВИТЬ idSelector
 function createCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete));
+  const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
   const cardElement = cardObject.generateCard();
   return cardElement;
 }

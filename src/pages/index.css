@@ -68,6 +68,8 @@
 @import url(../blocks/element/__like-button/_type_active/element__like-button_type_active.css);
 @import url(../blocks/element/__trash-button/element__trash-button.css);
 
+@import url(../blocks/element/__trash-button/_type_hidden/element__trash-button_type_hidden.css);
+
 /*footer*/
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

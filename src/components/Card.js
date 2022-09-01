@@ -1,12 +1,17 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, userIdSelector) {
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
+    // id создателей карточек (приходят с сервера)
+    this._cardOwnerId = data.owner._id;
 
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteButtonClick = handleDeleteButtonClick;
+
+    // id пользователя, с которым будем сравнивать id создателей карточек
+    this._userIdSelector = userIdSelector;
   }
 
   _getTemplate() {
@@ -20,9 +25,11 @@ export class Card {
     this._likeButton = this._element.querySelector('.element__like-button');
     this._likeCounter = this._element.querySelector('.element__like-counter');
     this._cardName = this._element.querySelector('.element__title');
-    
-    
     this._deleteButton = this._element.querySelector('.element__trash-button');
+
+    if (this._cardOwnerId !== this._userIdSelector) {
+      this._deleteButton.classList.add('element__trash-button_type_hidden');
+    }
 
     this._setEventListeners();
 
