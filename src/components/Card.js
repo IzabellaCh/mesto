@@ -3,13 +3,13 @@ export class Card {
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
+    // id, который будет передаваться в переменную cardOpenId для дальнейшей идентификации карточки при открытии попапа для подтверждения удаления
+    this._cardId = data._id;
     // id создателей карточек (приходят с сервера)
     this._cardOwnerId = data.owner._id;
-
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteButtonClick = handleDeleteButtonClick;
-
     // id пользователя, с которым будем сравнивать id создателей карточек
     this._userIdSelector = userIdSelector;
   }
@@ -46,10 +46,10 @@ export class Card {
     this._likeButton.classList.toggle('element__like-button_type_active');
   }
   
-  _handleDeleteButton() {
-    this._element.remove();
-    this._element = null;
-  }
+  // handleDeleteButton() {
+  //   this._element.remove();
+  //   this._element = null;
+  // }
 
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
@@ -60,8 +60,13 @@ export class Card {
     //   this._handleDeleteButton();
     // });
 
-    this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteButtonClick();
+    this._deleteButton.addEventListener('click', (evt) => {
+      // this._cardSelectedId = this._cardId;
+      // console.log(this._cardSelectedId);
+      console.log(evt.currentTarget);
+      console.log(evt.target);
+
+      this._handleDeleteButtonClick(this._cardId, this._element);
     });
 
     this._cardImage.addEventListener('click', () => {

@@ -17,11 +17,13 @@ import { Popup } from '../components/Popup.js';
 // новая часть кода для работы с API:
 
 import { Api } from '../components/Api.js';
+import { PopupuWithConfirmation } from '../components/PopupuWithConfirmation.js';
 
 const api = new Api();
 
 // объект, в который после запроса информации о пользователе с сервера и вызова userInfo.renderUserInfo будет вписан ключ "id" с его значением 
 const userOwner = {};
+let cardSelectedId = '';
 
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
@@ -42,15 +44,35 @@ formCardsValidator.enableValidation();
 const popupWithImage = new PopupuWithImage(popupCardSelector);
 popupWithImage.setEventListeners();
 
-const popupDelete = new Popup(popupDeleteSelector);
-popupDelete.setEventListeners();
+const popupDelete = new PopupuWithConfirmation(
+  popupDeleteSelector,
+  api.deleteCard
+);
 
-// функция создания новой карточки - НУЖНО ДОБАВИТЬ idSelector
+// const popupDelete = new PopupuWithConfirmation(
+//   popupDeleteSelector,
+//   {handleYesButtonClick: (cardId) => {
+//     // удаление карточкис с сервера
+//     api.deleteCard(cardId);
+//     }
+//   }
+// );
+
+
+// функция создания новой карточки - переписать функцию для открытия попапа удаления
 function createCard(card) {
   const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
   const cardElement = cardObject.generateCard();
   return cardElement;
 }
+
+
+// // функция создания новой карточки - переписать функцию для открытия попапа удаления
+// function createCard(card) {
+//   const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
+//   const cardElement = cardObject.generateCard();
+//   return cardElement;
+// }
 
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);

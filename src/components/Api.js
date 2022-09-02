@@ -40,6 +40,7 @@ export class Api {
     })
   }
 
+//   запрос для изменения информации из формы
   changeUserInfo(newInfo) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me', {
       method: 'PATCH',
@@ -63,6 +64,7 @@ export class Api {
     })
   }
 
+//   запрос для воздания новой карточки
   createNewCard(newCardInfo) {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
       method: 'POST',
@@ -86,8 +88,21 @@ export class Api {
     })
   }
 
-//   countLike() {
-//     this._likeCounter.textContent = `${cardInfo.likes.length} - 1`;
-//   }
-
+  deleteCard(cardInfo) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+      }
+    })
+    .then((res) => {
+     if (res.ok) {
+        return res.json();
+     }
+     return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      alert(`Ошибка при удалении карточки: ${err}`);
+    })
+  }
 }
