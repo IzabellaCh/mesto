@@ -20,12 +20,16 @@ const api = new Api();
 const userOwner = {};
 
 // создание фукционала для работы с информацией о пользователе
+// const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
+
+// создание фукционала для работы с информацией о пользователе
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
 // вставка личной информации с сервера
 api.getServerUserInfo().then((data) => {
   userInfo.renderUserInfo(data);
-});
+})
+
 
 // экземпляры классов валидации для форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -42,9 +46,35 @@ popupWithImage.setEventListeners();
 const popupDelete = new PopupuWithConfirmation(popupDeleteSelector, api.deleteCard);
 popupDelete.setEventListeners();
 
+
+// const dataForCard = {
+//   data: {card},
+//   templateSelector: '.element-template_type_default',
+//   handleCardClick: popupWithImage.open.bind(popupWithImage),
+//   handleDeleteButtonClick: popupDelete.open.bind(popupDelete),
+//   userIdSelector: userOwner.id, 
+//   handleChangeLike: api.addLike,
+// }
+
+
+// // функция создания новой карточки
+// function createCard(dataForCard) {
+//   const cardObject = new Card(dataForCard);
+//   const cardElement = cardObject.generateCard();
+//   return cardElement;
+// }
+
 // функция создания новой карточки
 function createCard(card) {
-  const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
+  const cardObject = new Card(
+    card, 
+    '.element-template_type_default',
+    popupWithImage.open.bind(popupWithImage),
+    popupDelete.open.bind(popupDelete),
+    userOwner.id,
+    api.addLike,
+    api.deleteLike
+    );
   const cardElement = cardObject.generateCard();
   return cardElement;
 }

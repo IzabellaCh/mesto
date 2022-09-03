@@ -1,5 +1,5 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, userIdSelector) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, userIdSelector, handleAddLike, handleDeleteLike) {
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
@@ -12,6 +12,9 @@ export class Card {
     this._handleDeleteButtonClick = handleDeleteButtonClick;
     // id пользователя, с которым будем сравнивать id создателей карточек
     this._userIdSelector = userIdSelector;
+    // функция для +/- лайка
+    this._handleDeleteLike = handleDeleteLike;
+    this._handleAddLike = handleAddLike;
   }
 
   _getTemplate() {
@@ -27,6 +30,7 @@ export class Card {
     this._cardName = this._element.querySelector('.element__title');
     this._deleteButton = this._element.querySelector('.element__trash-button');
 
+    // проверка, является ли пользователь создателем карточки, для скрытия кнопки удаления у чужих карточек
     if (this._cardOwnerId !== this._userIdSelector) {
       this._deleteButton.classList.add('element__trash-button_type_hidden');
     }
@@ -36,14 +40,38 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name + '.';
     this._cardName.textContent = this._name;
-
+    // обновление счетчика лайков при загрузке страницы
     this._likeCounter.textContent = `${this._likes.length}`;
+    // проверка состояния лайка при загрузке страницы
+    this._isLiked = this._likes.some((user) => {
+      return user._id === this._userIdSelector;
+    });
+
+    if (this._isLiked) {
+      this._likeButton.classList.add('element__like-button_type_active');
+    } else {
+      this._likeButton.classList.remove('element__like-button_type_active');
+    };
 
     return this._element;
   }
 
   _handleLikeButton() {
     this._likeButton.classList.toggle('element__like-button_type_active');
+    // проверка состояния лайка
+    if (this._isLiked) {
+      this._handleDeleteLike(this._cardId)
+      .then((data) => {
+        this._likes = data.likes;
+        this._likeCounter.textContent = `${this._likes.length}`;
+      });
+      } else {
+        this._handleAddLike(this._cardId)
+        .then((data) => {
+          this._likes = data.likes;
+          this._likeCounter.textContent = `${this._likes.length}`;
+        });
+      };
   }
   
   _setEventListeners() {

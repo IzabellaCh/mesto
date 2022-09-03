@@ -96,13 +96,49 @@ export class Api {
       }
     })
     .then((res) => {
-     if (res.ok) {
+      if (res.ok) {
         return res.json();
-     }
-     return Promise.reject(`Ошибка: ${res.status}`);
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
     })
     .catch((err) => {
       alert(`Ошибка при удалении карточки: ${err}`);
+    })
+  }
+
+  addLike(cardInfo) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+      }
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      alert(`Ошибка при добавлении лайка: ${err}`);
+    })
+  }
+
+  deleteLike(cardInfo) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+      }
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      alert(`Ошибка при добавлении лайка: ${err}`);
     })
   }
 }
