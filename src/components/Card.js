@@ -46,25 +46,12 @@ export class Card {
     this._likeButton.classList.toggle('element__like-button_type_active');
   }
   
-  // handleDeleteButton() {
-  //   this._element.remove();
-  //   this._element = null;
-  // }
-
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
     }); 
 
-    // this._deleteButton.addEventListener('click', () => {
-    //   this._handleDeleteButton();
-    // });
-
-    this._deleteButton.addEventListener('click', (evt) => {
-      // this._cardSelectedId = this._cardId;
-      // console.log(this._cardSelectedId);
-      console.log(evt.currentTarget);
-      console.log(evt.target);
+    this._deleteButton.addEventListener('click', () => {
 
       this._handleDeleteButtonClick(this._cardId, this._element);
     });

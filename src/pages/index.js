@@ -8,11 +8,6 @@ import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
 
-import { Popup } from '../components/Popup.js';
-
-
-
-
 
 // новая часть кода для работы с API:
 
@@ -23,15 +18,14 @@ const api = new Api();
 
 // объект, в который после запроса информации о пользователе с сервера и вызова userInfo.renderUserInfo будет вписан ключ "id" с его значением 
 const userOwner = {};
-let cardSelectedId = '';
 
+// создание фукционала для работы с информацией о пользователе
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
 // вставка личной информации с сервера
 api.getServerUserInfo().then((data) => {
   userInfo.renderUserInfo(data);
 });
-
 
 // экземпляры классов валидации для форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -44,41 +38,19 @@ formCardsValidator.enableValidation();
 const popupWithImage = new PopupuWithImage(popupCardSelector);
 popupWithImage.setEventListeners();
 
-const popupDelete = new PopupuWithConfirmation(
-  popupDeleteSelector,
-  api.deleteCard
-);
+// создание функционала для попапа с подтверждением удаления + обработчики
+const popupDelete = new PopupuWithConfirmation(popupDeleteSelector, api.deleteCard);
+popupDelete.setEventListeners();
 
-// const popupDelete = new PopupuWithConfirmation(
-//   popupDeleteSelector,
-//   {handleYesButtonClick: (cardId) => {
-//     // удаление карточкис с сервера
-//     api.deleteCard(cardId);
-//     }
-//   }
-// );
-
-
-// функция создания новой карточки - переписать функцию для открытия попапа удаления
+// функция создания новой карточки
 function createCard(card) {
   const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
   const cardElement = cardObject.generateCard();
   return cardElement;
 }
 
-
-// // функция создания новой карточки - переписать функцию для открытия попапа удаления
-// function createCard(card) {
-//   const cardObject = new Card(card, '.element-template_type_default', popupWithImage.open.bind(popupWithImage), popupDelete.open.bind(popupDelete), userOwner.id);
-//   const cardElement = cardObject.generateCard();
-//   return cardElement;
-// }
-
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);
-
-// // добавление карточек из основного массива - старый код
-// cardList.renderItems(initialCards);
 
 // добавление карточек основного массива с помощью класса api и запроса на сервер
 api.getInitialCards().then((data) => {
@@ -120,10 +92,6 @@ const popupWithNewCardForm = new PopupWithForm(
       link: formData.link,
     };
 
-    // отрисовка новой карточки без запроса - старый код
-    // const newCardElement = createCard(element);
-    // cardList.addItem(newCardElement);
-
     // отправка запроса на сервер для создания новой карточки и ее добавление
     api.createNewCard(element).then((data) => {
       const newCardElement = createCard(data);
@@ -133,7 +101,7 @@ const popupWithNewCardForm = new PopupWithForm(
   }
 );
 
-// + обработчиков попапа с новой карточкой
+// добавление обработчиков попапа с новой карточкой
 popupWithNewCardForm.setEventListeners();
 
 // Открытие попапа для добавления карточек
