@@ -37,3 +37,6 @@ export const selectorsForValidator = {
   inputErrorClass: 'popup__field_type_error',
   errorClass: 'popup__field-error_active',
 }
+
+// объект, в который после запроса информации о пользователе с сервера и вызова userInfo.renderUserInfo будет вписан ключ "id" с его значением 
+export const userOwner = {};

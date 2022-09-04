@@ -6,18 +6,18 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, avatar, avatarOverlay, formElementInfo, buttonAdd, formElementCards, formAvatar, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, popupAvatarSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
-
-
-// новая часть кода для работы с API:
-
 import { Api } from '../components/Api.js';
 import { PopupuWithConfirmation } from '../components/PopupuWithConfirmation.js';
 
-const api = new Api();
+import { selectorsForValidator, buttonEdit, avatar, avatarOverlay, formElementInfo, buttonAdd, formElementCards, formAvatar, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, popupAvatarSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector, userOwner } from '../utils/constants.js';
 
-// объект, в который после запроса информации о пользователе с сервера и вызова userInfo.renderUserInfo будет вписан ключ "id" с его значением 
-const userOwner = {};
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-49',
+  headers: {
+    authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47',
+    'Content-Type': 'application/json'
+  },
+});
 
 // создание фукционала для работы с информацией о пользователе
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
