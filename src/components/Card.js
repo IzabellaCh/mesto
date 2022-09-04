@@ -40,14 +40,12 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name + '.';
     this._cardName.textContent = this._name;
+
     // обновление счетчика лайков при загрузке страницы
     this._likeCounter.textContent = `${this._likes.length}`;
-    // проверка состояния лайка при загрузке страницы
-    this._isLiked = this._likes.some((user) => {
-      return user._id === this._userIdSelector;
-    });
 
-    if (this._isLiked) {
+    // проверка состояния лайка при загрузке страницы
+    if (this._isLiked()) {
       this._likeButton.classList.add('element__like-button_type_active');
     } else {
       this._likeButton.classList.remove('element__like-button_type_active');
@@ -56,20 +54,30 @@ export class Card {
     return this._element;
   }
 
+  _isLiked() {
+    return this._likes.some((user) => {
+      return user._id === this._userIdSelector;
+    })
+  }
+
+  _updateLikeCounter(data) {
+    this._likes = data.likes;
+    this._likeCounter.textContent = `${this._likes.length}`;
+  }
+
   _handleLikeButton() {
-    this._likeButton.classList.toggle('element__like-button_type_active');
     // проверка состояния лайка
-    if (this._isLiked) {
+    if (this._isLiked()) {
       this._handleDeleteLike(this._cardId)
       .then((data) => {
-        this._likes = data.likes;
-        this._likeCounter.textContent = `${this._likes.length}`;
+        this._updateLikeCounter(data);
+        this._likeButton.classList.remove('element__like-button_type_active');
       });
       } else {
         this._handleAddLike(this._cardId)
         .then((data) => {
-          this._likes = data.likes;
-          this._likeCounter.textContent = `${this._likes.length}`;
+          this._updateLikeCounter(data);
+          this._likeButton.classList.add('element__like-button_type_active');
         });
       };
   }
