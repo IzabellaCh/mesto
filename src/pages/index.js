@@ -135,6 +135,7 @@ const popupNewAvatar = new PopupWithForm(popupAvatarSelector,
 popupNewAvatar.setEventListeners();
 
 avatarOverlay.addEventListener('click', () => {
+  formAvatarValidator.resetValidation.bind(formAvatarValidator)();
   popupNewAvatar.open.bind(popupNewAvatar)();
 })
 
