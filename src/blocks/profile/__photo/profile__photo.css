@@ -6,14 +6,6 @@
   border-radius: 60px;
   width: 120px;
   height: 120px;
-  cursor: pointer;
-}
-
-.profile__photo:hover {
-  /* background-color: rgba(0, 0, 0, 0.8); */
-  opacity: 0,2;
-  background-image: url(../../../images/avatar_hover.svg);
-
 }
 
 @media screen and (max-width: 690px) {

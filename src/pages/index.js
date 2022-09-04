@@ -6,7 +6,7 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, avatar, formElementInfo, buttonAdd, formElementCards, formAvatar, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, popupAvatarSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
+import { selectorsForValidator, buttonEdit, avatar, avatarOverlay, formElementInfo, buttonAdd, formElementCards, formAvatar, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, popupAvatarSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
 
 
 // новая часть кода для работы с API:
@@ -134,7 +134,7 @@ const popupNewAvatar = new PopupWithForm(popupAvatarSelector,
 // добавление обработчиков попапу со сменой авататра
 popupNewAvatar.setEventListeners();
 
-avatar.addEventListener('click', () => {
+avatarOverlay.addEventListener('click', () => {
   popupNewAvatar.open.bind(popupNewAvatar)();
 })
 

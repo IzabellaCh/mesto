@@ -5,6 +5,7 @@ export const formElementInfo = popupPersInfo.querySelector('.popup__form_type_pe
 
 // объекты, связанные с аватаром
 export const avatar = document.querySelector('.profile__photo');
+export const avatarOverlay = document.querySelector('.profile__avatar-overlay');
 const popupAvatar = document.querySelector('.popup_type_avatar');
 export const formAvatar = popupAvatar.querySelector('.popup__form_type_avatar');
 
