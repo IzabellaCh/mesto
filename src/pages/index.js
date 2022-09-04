@@ -6,7 +6,7 @@ import { PopupuWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { selectorsForValidator, buttonEdit, formElementInfo, buttonAdd, formElementCards, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
+import { selectorsForValidator, buttonEdit, avatar, formElementInfo, buttonAdd, formElementCards, formAvatar, cardListSection, popupCardSelector, popupPersInfoSelector, popupNewCardSelector, popupAvatarSelector, userNameSelector, userDescriptionSelector, userAvatarSelector, popupDeleteSelector } from '../utils/constants.js';
 
 
 // новая часть кода для работы с API:
@@ -20,9 +20,6 @@ const api = new Api();
 const userOwner = {};
 
 // создание фукционала для работы с информацией о пользователе
-// const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector);
-
-// создание фукционала для работы с информацией о пользователе
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
 // вставка личной информации с сервера
@@ -30,13 +27,15 @@ api.getServerUserInfo().then((data) => {
   userInfo.renderUserInfo(data);
 })
 
-
-// экземпляры классов валидации для форм
+// экземпляры классов валидации для форм + запуск валидации всех форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
 formInfoValidator.enableValidation();
 
 const formCardsValidator = new FormValidator (selectorsForValidator, formElementCards);
 formCardsValidator.enableValidation();
+
+const formAvatarValidator = new FormValidator (selectorsForValidator, formAvatar);
+formAvatarValidator.enableValidation();
 
 // Создание функционала для попапа с картинкой + обработчики
 const popupWithImage = new PopupuWithImage(popupCardSelector);
@@ -45,24 +44,6 @@ popupWithImage.setEventListeners();
 // создание функционала для попапа с подтверждением удаления + обработчики
 const popupDelete = new PopupuWithConfirmation(popupDeleteSelector, api.deleteCard);
 popupDelete.setEventListeners();
-
-
-// const dataForCard = {
-//   data: {card},
-//   templateSelector: '.element-template_type_default',
-//   handleCardClick: popupWithImage.open.bind(popupWithImage),
-//   handleDeleteButtonClick: popupDelete.open.bind(popupDelete),
-//   userIdSelector: userOwner.id, 
-//   handleChangeLike: api.addLike,
-// }
-
-
-// // функция создания новой карточки
-// function createCard(dataForCard) {
-//   const cardObject = new Card(dataForCard);
-//   const cardElement = cardObject.generateCard();
-//   return cardElement;
-// }
 
 // функция создания новой карточки
 function createCard(card) {
@@ -121,7 +102,6 @@ const popupWithNewCardForm = new PopupWithForm(
       name: formData.placename,
       link: formData.link,
     };
-
     // отправка запроса на сервер для создания новой карточки и ее добавление
     api.createNewCard(element).then((data) => {
       const newCardElement = createCard(data);
@@ -141,6 +121,23 @@ buttonAdd.addEventListener('click', () => {
   // открытие попапа
   popupWithNewCardForm.open.bind(popupWithNewCardForm)();
 });
+
+// создание попапа для смены авататра
+const popupNewAvatar = new PopupWithForm(popupAvatarSelector, 
+  {handleFormSubmit: (formData) => {
+    // отправка запроса на сервер для смены аватара
+    api.changeAvatar(formData.link);
+    avatar.src = formData.link;
+    }
+  }
+);
+// добавление обработчиков попапу со сменой авататра
+popupNewAvatar.setEventListeners();
+
+avatar.addEventListener('click', () => {
+  popupNewAvatar.open.bind(popupNewAvatar)();
+})
+
 
 
 

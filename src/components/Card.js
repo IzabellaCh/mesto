@@ -53,13 +53,14 @@ export class Card {
 
     return this._element;
   }
-
+  // проверка карточки на наличие лайка пользователя
   _isLiked() {
     return this._likes.some((user) => {
       return user._id === this._userIdSelector;
     })
   }
 
+  // обновление счетчика лайков
   _updateLikeCounter(data) {
     this._likes = data.likes;
     this._likeCounter.textContent = `${this._likes.length}`;

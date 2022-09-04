@@ -141,4 +141,26 @@ export class Api {
       alert(`Ошибка при добавлении лайка: ${err}`);
     })
   }
+
+  changeAvatar(link) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me/avatar ', {
+      method: 'PATCH',
+      headers: {
+        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: `${link}`
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .catch((err) => {
+        alert(`Ошибка при смене аватара: ${err}`);
+    })
+  }
 }
