@@ -86,11 +86,11 @@ buttonEdit.addEventListener('click', () => {
   // получение информации о пользователе со страницы
   const userInfoOnPage = userInfo.getUserInfo();
   // вставка данных пользователя в форму попапа
-  popupWithPersInfoForm.setInputValues.bind(popupWithPersInfoForm)(userInfoOnPage);
+  popupWithPersInfoForm.setInputValues(userInfoOnPage);
   // скрытие прошлых ошибок
-  formInfoValidator.resetValidation.bind(formInfoValidator)();
+  formInfoValidator.resetValidation();
   // открытие попапа
-  popupWithPersInfoForm.open.bind(popupWithPersInfoForm)();
+  popupWithPersInfoForm.open();
 });
 
 // создание функционала экземпляра попапа с новой карточкой
@@ -117,9 +117,9 @@ popupWithNewCardForm.setEventListeners();
 // Открытие попапа для добавления карточек
 buttonAdd.addEventListener('click', () => {
   // скрытие прошлых ошибок
-  formCardsValidator.resetValidation.bind(formCardsValidator)();
+  formCardsValidator.resetValidation();
   // открытие попапа
-  popupWithNewCardForm.open.bind(popupWithNewCardForm)();
+  popupWithNewCardForm.open();
 });
 
 // создание попапа для смены авататра
@@ -135,8 +135,8 @@ const popupNewAvatar = new PopupWithForm(popupAvatarSelector,
 popupNewAvatar.setEventListeners();
 
 avatarOverlay.addEventListener('click', () => {
-  formAvatarValidator.resetValidation.bind(formAvatarValidator)();
-  popupNewAvatar.open.bind(popupNewAvatar)();
+  formAvatarValidator.resetValidation();
+  popupNewAvatar.open();
 })
 
 
