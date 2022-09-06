@@ -1,5 +1,5 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, userIdSelector, {handleLikeButton}) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, userIdSelector, {handleLikeButton}, handleDeleteCard) {
     this._link = data.link;
     this._name = data.name;
     this._data = data;
@@ -13,6 +13,7 @@ export class Card {
     // id пользователя, с которым будем сравнивать id создателей карточек
     this._userIdSelector = userIdSelector;
     this._handleLikeButton = handleLikeButton;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -63,11 +64,17 @@ export class Card {
     }); 
 
     this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteButtonClick(this._cardId, this._element);
+      this._handleDeleteButtonClick(this._deleteCard.bind(this));
     });
 
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._link, this._name);
     });
+  }
+
+  _deleteCard() {
+    this._handleDeleteCard(this._cardId);
+    this._element.remove();
+    this._element = null;
   }
 }

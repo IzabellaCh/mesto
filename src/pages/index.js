@@ -45,14 +45,16 @@ formAvatarValidator.enableValidation();
 const popupWithImage = new PopupuWithImage(popupCardSelector);
 popupWithImage.setEventListeners();
 
+
 // создание функционала для попапа с подтверждением удаления + обработчики
-const popupDelete = new PopupuWithConfirmation(popupDeleteSelector, api.deleteCard);
+const popupDelete = new PopupuWithConfirmation(popupDeleteSelector);
 popupDelete.setEventListeners();
+
 
 // функция создания новой карточки
 function createCard(card) {
   const cardObject = new Card(
-    card, 
+    card,
     '.element-template_type_default',
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
@@ -76,26 +78,12 @@ function createCard(card) {
           })
       };
     }
-    }
+    },
+    api.deleteCard.bind(api)
   );
   const cardElement = cardObject.generateCard();
   return cardElement;
 }
-
-// // функция создания новой карточки
-// function createCard(card) {
-//   const cardObject = new Card(
-//     card, 
-//     '.element-template_type_default',
-//     popupWithImage.open.bind(popupWithImage),
-//     popupDelete.open.bind(popupDelete),
-//     userOwner.id,
-//     api.addLike,
-//     api.deleteLike
-//     );
-//   const cardElement = cardObject.generateCard();
-//   return cardElement;
-// }
 
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);
