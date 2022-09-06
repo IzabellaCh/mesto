@@ -4,7 +4,6 @@ export class Api {
     this._headers = data.headers;
   }
 
-
   _checkResponse (res) {
     if (res.ok) {
       return res.json();
@@ -12,24 +11,12 @@ export class Api {
     return Promise.reject(`Ошибка: ${response.status}`);
   }
 
-
   // запрос для получения информации о пользователе
   getServerUserInfo() {
     return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
       headers: this._headers
     })
     .then(this._checkResponse)
-
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   } 
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
-
-    // .catch((err) => {
-    //   alert(`Ошибка при загрузке информации профиля: ${err}`);
-    // })
   }
 
 // запрос для создания массива карточек
@@ -38,15 +25,6 @@ export class Api {
       headers: this._headers
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
-    // .catch((err) => {
-    //   alert(`Ошибка при загрузке массива карточек: ${err}`);
-    // })
   }
 
 //   запрос для изменения информации из формы
@@ -60,12 +38,6 @@ export class Api {
       })
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
     .catch((err) => {
       alert(`Ошибка при обновлнии данных пользователя: ${err}`);
     })
@@ -82,15 +54,6 @@ export class Api {
       })
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
-    // .catch((err) => {
-    //   alert(`Ошибка при создании новой карточки: ${err}`);
-    // })
   }
 
   deleteCard(cardInfo) {
@@ -101,12 +64,6 @@ export class Api {
       }
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
     .catch((err) => {
       alert(`Ошибка при удалении карточки: ${err}`);
     })
@@ -120,15 +77,6 @@ export class Api {
       }
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
-    // .catch((err) => {
-    //   alert(`Ошибка при добавлении лайка: ${err}`);
-    // })
   }
 
   deleteLike(cardInfo) {
@@ -139,15 +87,6 @@ export class Api {
       }
     })
     .then(this._checkResponse)
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`);
-    // })
-    // .catch((err) => {
-    //   alert(`Ошибка при удалении лайка: ${err}`);
-    // })
   }
 
   changeAvatar(link) {
@@ -158,13 +97,7 @@ export class Api {
         avatar: `${link}`
       })
       })
-      .then(this._checkResponse)
-      // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Ошибка: ${res.status}`)
-    // })
+    .then(this._checkResponse)
     .catch((err) => {
       alert(`Ошибка при смене аватара: ${err}`);
     })
