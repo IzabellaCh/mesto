@@ -6,7 +6,7 @@ export class Api {
 
   // запрос для получения информации о пользователе
   getServerUserInfo() {
-    return fetch('https://nomoreparties.co/v1/cohort-49/users/me', {
+    return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
       headers: this._headers
     })
     .then((res) => {
@@ -78,15 +78,11 @@ export class Api {
     // })
   }
 
-  // далее в методах DELETE и PUT, если использую this._baseUrl и/или this._headers, 
-  // пока по непонятной мне причине, Chrome не отрисовывает кнопку удаления, 
-  // не работают лайки, не меняестя их счетчик, поэтому не стала вставлять их, как ранее
-
   deleteCard(cardInfo) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}`, {
+    return fetch(`${this._baseUrl}/cards/${cardInfo}`, {
       method: 'DELETE',
       headers: {
-        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+        authorization: this._headers.authorization
       }
     })
     .then((res) => {
@@ -101,10 +97,10 @@ export class Api {
   }
 
   addLike(cardInfo) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${cardInfo}/likes`, {
       method: 'PUT',
       headers: {
-        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+        authorization: this._headers.authorization
       }
     })
     .then((res) => {
@@ -119,10 +115,10 @@ export class Api {
   }
 
   deleteLike(cardInfo) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardInfo}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${cardInfo}/likes`, {
       method: 'DELETE',
       headers: {
-        authorization: 'adc94622-2d1b-46ad-9b64-72eed6ee2b47'
+        authorization: this._headers.authorization
       }
     })
     .then((res) => {
