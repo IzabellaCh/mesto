@@ -47,30 +47,31 @@ function createCard(card) {
   const cardObject = new Card(
     card,
     '.element-template_type_default',
+    userOwner.id,
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
-    userOwner.id,
-    {handleLikeButton: (cardId, like, updateLike) => {
-      if (like) {
-        api.deleteLike(cardId)
-          .then((data) => {
+    api.deleteCard.bind(api),
+    {
+      handleLikeButton: (cardId, like, updateLike) => {
+        if (like) {
+          api.deleteLike(cardId)
+            .then((data) => {
             updateLike(data);
-          })
-          .catch((err) => {
-            alert(`Ошибка при удалении лайка: ${err}`);
-          })
-      } else {
-        api.addLike(cardId)
-          .then((data) => {
-            updateLike(data);
-          })
-          .catch((err) => {
-            alert(`Ошибка при добавлении лайка: ${err}`);
-          })
-      };
-    }
+            })
+            .catch((err) => {
+              alert(`Ошибка при удалении лайка: ${err}`);
+            })
+        } else {
+          api.addLike(cardId)
+            .then((data) => {
+                updateLike(data);
+            })
+            .catch((err) => {
+              alert(`Ошибка при добавлении лайка: ${err}`);
+            })
+        };
+      },
     },
-    api.deleteCard.bind(api)
   );
   const cardElement = cardObject.generateCard();
   return cardElement;
