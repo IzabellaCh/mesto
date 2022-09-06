@@ -113,9 +113,9 @@ export class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      alert(`Ошибка при добавлении лайка: ${err}`);
-    })
+    // .catch((err) => {
+    //   alert(`Ошибка при добавлении лайка: ${err}`);
+    // })
   }
 
   deleteLike(cardInfo) {
@@ -131,9 +131,9 @@ export class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      alert(`Ошибка при добавлении лайка: ${err}`);
-    })
+    // .catch((err) => {
+    //   alert(`Ошибка при удалении лайка: ${err}`);
+    // })
   }
 
   changeAvatar(link) {

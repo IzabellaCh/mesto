@@ -57,12 +57,45 @@ function createCard(card) {
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
     userOwner.id,
-    api.addLike,
-    api.deleteLike
-    );
+    {handleLikeButton: (cardId, like, updateLike) => {
+      if (like) {
+        api.deleteLike(cardId)
+          .then((data) => {
+            updateLike(data);
+          })
+          .catch((err) => {
+            alert(`Ошибка при удалении лайка: ${err}`);
+          })
+      } else {
+        api.addLike(cardId)
+          .then((data) => {
+            updateLike(data);
+          })
+          .catch((err) => {
+            alert(`Ошибка при добавлении лайка: ${err}`);
+          })
+      };
+    }
+    }
+  );
   const cardElement = cardObject.generateCard();
   return cardElement;
 }
+
+// // функция создания новой карточки
+// function createCard(card) {
+//   const cardObject = new Card(
+//     card, 
+//     '.element-template_type_default',
+//     popupWithImage.open.bind(popupWithImage),
+//     popupDelete.open.bind(popupDelete),
+//     userOwner.id,
+//     api.addLike,
+//     api.deleteLike
+//     );
+//   const cardElement = cardObject.generateCard();
+//   return cardElement;
+// }
 
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);
