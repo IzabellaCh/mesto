@@ -4,17 +4,29 @@ export class Api {
     this._headers = data.headers;
   }
 
+
+  _checkResponse (res) {
+    if (res.ok) {
+      return res.json();
+    } 
+    return Promise.reject(`Ошибка: ${response.status}`);
+  }
+
+
   // запрос для получения информации о пользователе
   getServerUserInfo() {
     return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } 
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   } 
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
+
     // .catch((err) => {
     //   alert(`Ошибка при загрузке информации профиля: ${err}`);
     // })
@@ -25,12 +37,13 @@ export class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     // .catch((err) => {
     //   alert(`Ошибка при загрузке массива карточек: ${err}`);
     // })
@@ -46,12 +59,13 @@ export class Api {
         about: `${newInfo.description}`
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     .catch((err) => {
       alert(`Ошибка при обновлнии данных пользователя: ${err}`);
     })
@@ -67,12 +81,13 @@ export class Api {
         link: `${newCardInfo.link}`
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     // .catch((err) => {
     //   alert(`Ошибка при создании новой карточки: ${err}`);
     // })
@@ -85,12 +100,13 @@ export class Api {
         authorization: this._headers.authorization
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     .catch((err) => {
       alert(`Ошибка при удалении карточки: ${err}`);
     })
@@ -103,12 +119,13 @@ export class Api {
         authorization: this._headers.authorization
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     // .catch((err) => {
     //   alert(`Ошибка при добавлении лайка: ${err}`);
     // })
@@ -121,12 +138,13 @@ export class Api {
         authorization: this._headers.authorization
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse)
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
+    // })
     // .catch((err) => {
     //   alert(`Ошибка при удалении лайка: ${err}`);
     // })
@@ -139,13 +157,14 @@ export class Api {
       body: JSON.stringify({
         avatar: `${link}`
       })
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
+      })
+      .then(this._checkResponse)
+      // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   }
+    //   return Promise.reject(`Ошибка: ${res.status}`)
+    // })
     .catch((err) => {
       alert(`Ошибка при смене аватара: ${err}`);
     })
