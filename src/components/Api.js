@@ -15,9 +15,9 @@ export class Api {
       } 
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      alert(`Ошибка при загрузке информации профиля: ${err}`);
-    })
+    // .catch((err) => {
+    //   alert(`Ошибка при загрузке информации профиля: ${err}`);
+    // })
   }
 
 // запрос для создания массива карточек
@@ -31,9 +31,9 @@ export class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      alert(`Ошибка при загрузке массива карточек: ${err}`);
-    })
+    // .catch((err) => {
+    //   alert(`Ошибка при загрузке массива карточек: ${err}`);
+    // })
   }
 
 //   запрос для изменения информации из формы
@@ -73,9 +73,9 @@ export class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      alert(`Ошибка при создании новой карточки: ${err}`);
-    })
+    // .catch((err) => {
+    //   alert(`Ошибка при создании новой карточки: ${err}`);
+    // })
   }
 
   // далее в методах DELETE и PUT, если использую this._baseUrl и/или this._headers, 

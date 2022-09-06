@@ -23,9 +23,13 @@ const api = new Api({
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
 // вставка личной информации с сервера
-api.getServerUserInfo().then((data) => {
-  userInfo.renderUserInfo(data);
-})
+api.getServerUserInfo()
+  .then((data) => {
+    userInfo.renderUserInfo(data);
+  })
+  .catch((err) => {
+    alert(`Ошибка при загрузке информации профиля: ${err}`);
+  })
 
 // экземпляры классов валидации для форм + запуск валидации всех форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
@@ -64,9 +68,17 @@ function createCard(card) {
 const cardList = new Section(createCard, cardListSection);
 
 // добавление карточек основного массива с помощью класса api и запроса на сервер
-api.getInitialCards().then((data) => {
-  cardList.renderItems(data);
-})
+api.getInitialCards()
+  .then((data) => {
+    // создание массива карочек из полученной информации
+    const cardArray = cardList.renderItems(data);
+    // вставка карточек
+    cardList.addItem(cardArray);
+  })
+  .catch((err) => {
+    alert(`Ошибка при загрузке массива карточек: ${err}`);
+  })
+
 
 // создание функционала экземпляра попапа с персональной информацией
 const popupWithPersInfoForm = new PopupWithForm(
@@ -103,10 +115,14 @@ const popupWithNewCardForm = new PopupWithForm(
       link: formData.link,
     };
     // отправка запроса на сервер для создания новой карточки и ее добавление
-    api.createNewCard(element).then((data) => {
-      const newCardElement = createCard(data);
-      cardList.addItem(newCardElement);
-    })
+    api.createNewCard(element)
+      .then((data) => {
+        const newCardElement = [createCard(data)];
+        cardList.addItem(newCardElement);
+      })
+      .catch((err) => {
+        alert(`Ошибка при создании новой карточки: ${err}`);
+      })
     }
   }
 );
