@@ -22,15 +22,6 @@ const api = new Api({
 // создание фукционала для работы с информацией о пользователе
 const userInfo = new UserInfo(userNameSelector, userDescriptionSelector, userAvatarSelector, userOwner);
 
-// вставка личной информации с сервера
-api.getServerUserInfo()
-  .then((data) => {
-    userInfo.renderUserInfo(data);
-  })
-  .catch((err) => {
-    alert(`Ошибка при загрузке информации профиля: ${err}`);
-  })
-
 // экземпляры классов валидации для форм + запуск валидации всех форм
 const formInfoValidator = new FormValidator (selectorsForValidator, formElementInfo);
 formInfoValidator.enableValidation();
@@ -88,18 +79,23 @@ function createCard(card) {
 // Создание карточек из основного массива
 const cardList = new Section(createCard, cardListSection);
 
-// добавление карточек основного массива с помощью класса api и запроса на сервер
-api.getInitialCards()
-  .then((data) => {
-    // создание массива карочек из полученной информации
-    const cardArray = cardList.renderItems(data);
-    // вставка карточек
-    cardList.addItem(cardArray);
-  })
-  .catch((err) => {
-    alert(`Ошибка при загрузке массива карточек: ${err}`);
-  })
-
+// Отрисовка страницы после получения информации о пользователе и массиве созданных ранее карт
+Promise.all([
+  api.getServerUserInfo(), 
+  api.getInitialCards()
+])
+.then(([dataUserInfo, dataInitialCards]) => {
+  // получение информации о пользователе
+  userInfo.renderUserInfo(dataUserInfo);
+  // создание массива карочек из полученной информации
+  const cardArray = cardList.renderItems(dataInitialCards);
+  // вставка карточек
+  cardList.addItem(cardArray);
+})
+.catch((errUserInfo, errInitialCards) => {
+  alert(`Ошибка при загрузке информации профиля: ${errUserInfo}`);
+  alert(`Ошибка при загрузке массива карточек: ${errInitialCards}`);
+})
 
 // создание функционала экземпляра попапа с персональной информацией
 const popupWithPersInfoForm = new PopupWithForm(
@@ -175,11 +171,3 @@ avatarOverlay.addEventListener('click', () => {
   formAvatarValidator.resetValidation();
   popupNewAvatar.open();
 })
-
-
-
-
-
-
-
-
