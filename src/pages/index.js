@@ -62,23 +62,14 @@ function createCard(card) {
           })
       },
       handleLikeButton: (cardId, like, updateLike) => {
-        if (like) {
-          api.deleteLike(cardId)
+        const action = like ? api.deleteLike(cardId) : api.addLike(cardId);
+          action
             .then((data) => {
-            updateLike(data);
+              updateLike(data);
             })
             .catch((err) => {
-              alert(`Ошибка при удалении лайка: ${err}`);
+              alert(`Ошибка при постановке лайка: ${err}`);
             })
-        } else {
-          api.addLike(cardId)
-            .then((data) => {
-                updateLike(data);
-            })
-            .catch((err) => {
-              alert(`Ошибка при добавлении лайка: ${err}`);
-            })
-        };
       },
     },
   );
