@@ -50,8 +50,13 @@ function createCard(card) {
     userOwner.id,
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
-    api.deleteCard.bind(api),
     {
+      handleDeleteCard: (cardId) => {
+        api.deleteCard(cardId)
+          .catch((err) => {
+            alert(`Ошибка при удалении карточки: ${err}`);
+          })
+      },
       handleLikeButton: (cardId, like, updateLike) => {
         if (like) {
           api.deleteLike(cardId)
@@ -107,7 +112,10 @@ const popupWithPersInfoForm = new PopupWithForm(
   {handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
     // сохранение новой инфрмации о пользователе посредством запроса PATCH
-    api.changeUserInfo(formData);
+    api.changeUserInfo(formData)
+      .catch((err) => {
+        alert(`Ошибка при обновлнии данных пользователя: ${err}`);
+      });
     }
   }
 );
@@ -163,7 +171,10 @@ buttonAdd.addEventListener('click', () => {
 const popupNewAvatar = new PopupWithForm(popupAvatarSelector, 
   {handleFormSubmit: (formData) => {
     // отправка запроса на сервер для смены аватара
-    api.changeAvatar(formData.link);
+    api.changeAvatar(formData.link)
+      .catch((err) => {
+        alert(`Ошибка при смене аватара: ${err}`);
+      });
     avatar.src = formData.link;
     }
   }

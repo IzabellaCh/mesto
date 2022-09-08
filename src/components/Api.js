@@ -38,12 +38,9 @@ export class Api {
       })
     })
     .then(this._checkResponse)
-    .catch((err) => {
-      alert(`Ошибка при обновлнии данных пользователя: ${err}`);
-    })
   }
 
-//   запрос для воздания новой карточки
+  // запрос для создания новой карточки
   createNewCard(newCardInfo) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -64,9 +61,6 @@ export class Api {
       }
     })
     .then(this._checkResponse)
-    .catch((err) => {
-      alert(`Ошибка при удалении карточки: ${err}`);
-    })
   }
 
   addLike(cardInfo) {
@@ -98,8 +92,5 @@ export class Api {
       })
       })
     .then(this._checkResponse)
-    .catch((err) => {
-      alert(`Ошибка при смене аватара: ${err}`);
-    })
   }
 }
