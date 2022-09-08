@@ -64,9 +64,7 @@ export class Card {
     }); 
 
     this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteButtonClick( () => {
-        this._handleDeleteCard(this._cardId)
-      });
+      this._handleDeleteButtonClick(this._handleDeleteCard.bind(this, this._cardId));
     });
 
     this._cardImage.addEventListener('click', () => {
