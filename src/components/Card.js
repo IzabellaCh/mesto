@@ -50,7 +50,7 @@ export class Card {
   // обновление счетчика лайков
   _updateLikeCounter(info) {
     this._likes = info.likes;
-    this._likeCounter.textContent = `${this._likes.length}`;
+    this._likeCounter.textContent = this._likes.length;
     if (this._isLiked()) {
       this._likeButton.classList.add('element__like-button_type_active');
     } else {
