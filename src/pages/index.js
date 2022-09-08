@@ -175,10 +175,12 @@ const popupNewAvatar = new PopupWithForm(popupAvatarSelector,
   {handleFormSubmit: (formData) => {
     // отправка запроса на сервер для смены аватара
     api.changeAvatar(formData.link)
+      .then((data) => {
+        avatar.src = data.avatar;
+      })
       .catch((err) => {
         alert(`Ошибка при смене аватара: ${err}`);
       });
-    avatar.src = formData.link;
     }
   }
 );
