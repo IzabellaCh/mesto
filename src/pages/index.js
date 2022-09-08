@@ -50,9 +50,13 @@ function createCard(card) {
     userOwner.id,
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
+
     {
       handleDeleteCard: (cardId) => {
         api.deleteCard(cardId)
+          .then(() => {
+            cardObject.deleteCard();
+          })
           .catch((err) => {
             alert(`Ошибка при удалении карточки: ${err}`);
           })
@@ -150,10 +154,6 @@ const popupWithNewCardForm = new PopupWithForm(
       .then((data) => {
         cardList.addItem(createCard(data));
       })
-      // .then((data) => {
-      //   const newCardElement = createCard(data);
-      //   cardList.addItem(newCardElement);
-      // })
       .catch((err) => {
         alert(`Ошибка при создании новой карточки: ${err}`);
       })
