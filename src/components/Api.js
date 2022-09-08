@@ -13,11 +13,19 @@ export class Api {
 
   // запрос для получения информации о пользователе
   getServerUserInfo() {
-    return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
     .then(this._checkResponse)
   }
+
+    // // запрос для получения информации о пользователе
+    // getServerUserInfo() {
+    //   return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
+    //     headers: this._headers
+    //   })
+    //   .then(this._checkResponse)
+    // }
 
 // запрос для создания массива карточек
   getInitialCards() {

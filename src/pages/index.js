@@ -88,10 +88,13 @@ Promise.all([
 .then(([dataUserInfo, dataInitialCards]) => {
   // получение информации о пользователе
   userInfo.renderUserInfo(dataUserInfo);
-  // создание массива карочек из полученной информации
-  const cardArray = cardList.renderItems(dataInitialCards);
-  // вставка карточек
-  cardList.addItem(cardArray);
+  // создание массива карочек из полученной информации - код с 1 ревью
+  cardList.renderItems(dataInitialCards);
+
+  // вставка карточек - код на 2 ревью
+  // const cardArray = cardList.renderItems(dataInitialCards);
+  // // вставка карточек
+  // cardList.addItem(cardArray);
 })
 .catch((errUserInfo, errInitialCards) => {
   alert(`Ошибка при загрузке информации профиля: ${errUserInfo}`);
@@ -135,7 +138,7 @@ const popupWithNewCardForm = new PopupWithForm(
     // отправка запроса на сервер для создания новой карточки и ее добавление
     api.createNewCard(element)
       .then((data) => {
-        const newCardElement = [createCard(data)];
+        const newCardElement = createCard(data);
         cardList.addItem(newCardElement);
       })
       .catch((err) => {
