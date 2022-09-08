@@ -50,7 +50,6 @@ function createCard(card) {
     userOwner.id,
     popupWithImage.open.bind(popupWithImage),
     popupDelete.open.bind(popupDelete),
-
     {
       handleDeleteCard: (cardId) => {
         api.deleteCard(cardId)
