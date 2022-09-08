@@ -83,7 +83,12 @@ function createCard(card) {
 }
 
 // Создание карточек из основного массива
-const cardList = new Section(createCard, cardListSection);
+const cardList = new Section({
+    renderer: (data) => {
+    cardList.addItem(createCard(data));
+    }
+    }, cardListSection
+  );
 
 // Отрисовка страницы после получения информации о пользователе и массиве созданных ранее карт
 Promise.all([
@@ -93,13 +98,8 @@ Promise.all([
 .then(([dataUserInfo, dataInitialCards]) => {
   // получение информации о пользователе
   userInfo.renderUserInfo(dataUserInfo);
-  // создание массива карочек из полученной информации - код с 1 ревью
+  // создание массива карочек из полученной информации
   cardList.renderItems(dataInitialCards);
-
-  // вставка карточек - код на 2 ревью
-  // const cardArray = cardList.renderItems(dataInitialCards);
-  // // вставка карточек
-  // cardList.addItem(cardArray);
 })
 .catch((errUserInfo, errInitialCards) => {
   alert(`Ошибка при загрузке информации профиля: ${errUserInfo}`);
@@ -146,9 +146,12 @@ const popupWithNewCardForm = new PopupWithForm(
     // отправка запроса на сервер для создания новой карточки и ее добавление
     api.createNewCard(element)
       .then((data) => {
-        const newCardElement = createCard(data);
-        cardList.addItem(newCardElement);
+        cardList.addItem(createCard(data));
       })
+      // .then((data) => {
+      //   const newCardElement = createCard(data);
+      //   cardList.addItem(newCardElement);
+      // })
       .catch((err) => {
         alert(`Ошибка при создании новой карточки: ${err}`);
       })
