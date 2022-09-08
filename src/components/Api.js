@@ -19,14 +19,6 @@ export class Api {
     .then(this._checkResponse)
   }
 
-    // // запрос для получения информации о пользователе
-    // getServerUserInfo() {
-    //   return fetch(`${this._baseUrl.slice(0, 8)}${this._baseUrl.slice(14)}/users/me`, {
-    //     headers: this._headers
-    //   })
-    //   .then(this._checkResponse)
-    // }
-
 // запрос для создания массива карточек
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
@@ -41,8 +33,8 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: `${newInfo.name}`,
-        about: `${newInfo.description}`
+        name: newInfo.name,
+        about: newInfo.description
       })
     })
     .then(this._checkResponse)
@@ -57,8 +49,8 @@ export class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: `${newCardInfo.name}`,
-        link: `${newCardInfo.link}`
+        name: newCardInfo.name,
+        link: newCardInfo.link
       })
     })
     .then(this._checkResponse)
@@ -102,7 +94,7 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: `${link}`
+        avatar: link
       })
       })
     .then(this._checkResponse)
